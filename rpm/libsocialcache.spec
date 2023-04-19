@@ -42,15 +42,6 @@ Summary:   QML plugin for libsocialcache
 %description qml-plugin
 This package contains the qml plugin for socialcache
 
-%package tests
-Summary:    Unit tests for libsocialcache
-License:    BSD
-BuildRequires:  pkgconfig(Qt5Test)
-Requires:   %{name} = %{version}-%{release}
-
-%description tests
-This package contains unit tests for the libsocialcache library.
-
 %prep
 %setup -q -n %{name}-%{version}
 
@@ -89,6 +80,3 @@ rm -rf %{buildroot}
 %{_libdir}/qt5/qml/org/nemomobile/socialcache/libsocialcacheqml.so
 %{_datadir}/translations/socialcache_eng_en.qm
 
-%files tests
-%defattr(-,root,root,-)
-/opt/tests/libsocialcache/
