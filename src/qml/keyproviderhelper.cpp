@@ -27,6 +27,7 @@ KeyProviderHelper::KeyProviderHelper(QObject *parent)
     , m_triedLoadingOneDrive(false)
     , m_triedLoadingDropbox(false)
     , m_triedLoadingVk(false)
+    , m_triedLoadingGithub(false)
 {
 }
 
@@ -98,6 +99,15 @@ QString KeyProviderHelper::vkClientId()
     return m_vkClientId;
 }
 
+QString KeyProviderHelper::githubClientId()
+{
+    if (!m_triedLoadingGithub) {
+        loadGithub();
+    }
+
+    return m_githubClientId;
+}
+
 void KeyProviderHelper::loadFacebook()
 {
     m_triedLoadingFacebook = true;
@@ -155,5 +165,19 @@ void KeyProviderHelper::loadVk()
     }
 
     m_vkClientId = QLatin1String(cClientId);
+    free(cClientId);
+}
+
+void KeyProviderHelper::loadGithub()
+{
+    m_triedLoadingGithub = true;
+    char *cClientId = NULL;
+    int cSuccess = SailfishKeyProvider_storedKey("github", "github-sync", "client_id",
+                                                 &cClientId);
+    if (cSuccess != 0 || cClientId == NULL) {
+        return;
+    }
+
+    m_githubClientId = QLatin1String(cClientId);
     free(cClientId);
 }
