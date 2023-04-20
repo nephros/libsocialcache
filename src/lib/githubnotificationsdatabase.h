@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2014-2015 Jolla Ltd.
- * Contact: Antti Seppälä <antti.seppala@jollamobile.com>
+ * Copyright (C) 2014 Jolla Ltd.
+ * Contact: Bea Lam <bea.lam@jollamobile.com>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -32,34 +32,36 @@ class GithubNotification
 public:
     typedef QSharedPointer<GithubNotification> Ptr;
     typedef QSharedPointer<const GithubNotification> ConstPtr;
+
     virtual ~GithubNotification();
-    static GithubNotification::Ptr create(const QString &githubId, const QString &from, const QString &to,
-                                            const QDateTime &createdTime, const QDateTime &updatedTime,
-                                            const QString &title, const QString &link,
-                                            const QString &application, const QString &object,
-                                            bool unread, int accountId, const QString &clientId);
-    QString githubId() const;
+
+    static GithubNotification::Ptr create(const QString &identifier,
+                                      int accountId,
+                                      const QString &type,
+                                      const QString &from,
+                                      const QString &repo,
+                                      const QString &avatar,
+                                      const QDateTime &createdTime);
+    QString identifier() const;
+    QString type() const;
     QString from() const;
-    QString to() const;
+    QString repo() const;
+    QString avatar() const;
     QDateTime createdTime() const;
-    QDateTime updatedTime() const;
-    QString title() const;
-    QString link() const;
-    QString application() const;
-    QString object() const;
-    bool unread() const;
     int accountId() const;
-    QString clientId() const;
+
 
 protected:
     QScopedPointer<GithubNotificationPrivate> d_ptr;
 private:
     Q_DECLARE_PRIVATE(GithubNotification)
-    explicit GithubNotification(const QString &githubId, const QString &from, const QString &to,
-                                  const QDateTime &createdTime, const QDateTime &updatedTime,
-                                  const QString &title, const QString &link,
-                                  const QString &application, const QString &object,
-                                  bool unread, int accountId, const QString &clientId);
+    explicit GithubNotification(const QString &identifier,
+                            int accountId,
+                            const QString &type,
+                            const QString &from,
+                            const QString &repo,
+                            const QString &avatar,
+                            const QDateTime &createdTime);
 };
 
 
@@ -67,40 +69,34 @@ class GithubNotificationsDatabasePrivate;
 class GithubNotificationsDatabase: public AbstractSocialCacheDatabase
 {
     Q_OBJECT
-    Q_PROPERTY(QVariantList accountIdFilter READ accountIdFilter WRITE setAccountIdFilter NOTIFY accountIdFilterChanged)
 
 public:
     explicit GithubNotificationsDatabase();
     ~GithubNotificationsDatabase();
 
-    QVariantList accountIdFilter() const;
-    void setAccountIdFilter(const QVariantList &accountIds);
+    void addGithubNotification(int accountId,
+                           const QString &type,
+                           const QString &from,
+                           const QString &repo,
+                           const QString &avatar,
+                           const QDateTime &createdTime);
 
-    void addGithubNotification(const QString &githubId, const QString &from, const QString &to,
-                                 const QDateTime &createdTime, const QDateTime &updatedTime,
-                                 const QString &title, const QString &link,
-                                 const QString &application, const QString &object,
-                                 bool unread, int accountId, const QString &clientId);
-    void removeAllNotifications();
     void removeNotifications(int accountId);
     void removeNotification(const QString &notificationId);
-    void removeNotifications(QStringList notificationIds);
-    void purgeOldNotifications(int limitInDays);
+    void removeNotifications(const QStringList &notificationIds);
+
     void sync();
+
     QList<GithubNotification::ConstPtr> notifications();
 
 signals:
     void notificationsChanged();
-    void accountIdFilterChanged();
 
 protected:
     void readFinished();
     bool write();
     bool createTables(QSqlDatabase database) const;
     bool dropTables(QSqlDatabase database) const;
-
-private:
-    void removeNotificationFromQueues(const QString &notificationId);
 
 private:
     Q_DECLARE_PRIVATE(GithubNotificationsDatabase)
