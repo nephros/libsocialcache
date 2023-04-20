@@ -41,12 +41,14 @@ public:
                                       const QString &from,
                                       const QString &repo,
                                       const QString &avatar,
+                                      const QString &url,
                                       const QDateTime &createdTime);
     QString identifier() const;
     QString type() const;
     QString from() const;
     QString repo() const;
     QString avatar() const;
+    QString url() const;
     QDateTime createdTime() const;
     int accountId() const;
 
@@ -61,6 +63,7 @@ private:
                             const QString &from,
                             const QString &repo,
                             const QString &avatar,
+                            const QString &url,
                             const QDateTime &createdTime);
 };
 
@@ -79,6 +82,7 @@ public:
                            const QString &from,
                            const QString &repo,
                            const QString &avatar,
+                           const QString &url,
                            const QDateTime &createdTime);
 
     void removeNotifications(int accountId);
