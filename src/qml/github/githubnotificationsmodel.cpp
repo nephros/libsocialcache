@@ -67,12 +67,12 @@ QVariantList GithubNotificationsModel::accountIdFilter() const
     return d->database.accountIdFilter();
 }
 
-void GithubNotificationsModel::setAccountIdFilter(const QVariantList &accountIds)
-{
-    Q_D(GithubNotificationsModel);
-
-    d->database.setAccountIdFilter(accountIds);
-}
+//void GithubNotificationsModel::setAccountIdFilter(const QVariantList &accountIds)
+//{
+//    Q_D(GithubNotificationsModel);
+//
+//    d->database.setAccountIdFilter(accountIds);
+//}
 
 void GithubNotificationsModel::refresh()
 {
