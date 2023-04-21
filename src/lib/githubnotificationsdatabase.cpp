@@ -191,7 +191,7 @@ void GithubNotificationsDatabase::addGithubNotification(int accountId,
 {
     qDebug() << Q_FUNC_INFO << "called";
     Q_D(GithubNotificationsDatabase);
-    qDebug() << Q_FUNC_INFO << "creating" << accountId, type, from, repo, avatar, url, createdTime;
+    qDebug() << Q_FUNC_INFO << "creating" << accountId << type << from << repo << avatar << url << createdTime;
     d->insertNotifications[accountId].append(GithubNotification::create(QString(), accountId, type, from, repo, avatar, url, createdTime));
 
     executeWrite();
