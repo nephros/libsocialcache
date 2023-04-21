@@ -43,16 +43,16 @@ public:
     explicit GithubNotificationsModel(QObject *parent = 0);
     QHash<int, QByteArray> roleNames() const;
 
-    QVariantList accountIdFilter() const;
-    void setAccountIdFilter(const QVariantList &accountIds);
+    //QVariantList accountIdFilter() const;
+    //void setAccountIdFilter(const QVariantList &accountIds);
 
     void refresh();
 
     Q_INVOKABLE void remove(const QString &notificationId);
     Q_INVOKABLE void clear();
 
-signals:
-    void accountIdFilterChanged();
+//signals:
+//    void accountIdFilterChanged();
 
 private Q_SLOTS:
     void notificationsChanged();
