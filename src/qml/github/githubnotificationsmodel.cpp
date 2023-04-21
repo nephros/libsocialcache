@@ -44,7 +44,7 @@ GithubNotificationsModel::GithubNotificationsModel(QObject *parent)
     Q_D(GithubNotificationsModel);
 
     connect(&d->database, SIGNAL(notificationsChanged()), this, SLOT(notificationsChanged()));
-    connect(&d->database, SIGNAL(accountIdFilterChanged()), this, SIGNAL(accountIdFilterChanged()));
+    //connect(&d->database, SIGNAL(accountIdFilterChanged()), this, SIGNAL(accountIdFilterChanged()));
 }
 
 QHash<int, QByteArray> GithubNotificationsModel::roleNames() const
@@ -60,12 +60,12 @@ QHash<int, QByteArray> GithubNotificationsModel::roleNames() const
     return roleNames;
 }
 
-QVariantList GithubNotificationsModel::accountIdFilter() const
-{
-    Q_D(const GithubNotificationsModel);
-
-    return d->database.accountIdFilter();
-}
+//QVariantList GithubNotificationsModel::accountIdFilter() const
+//{
+//    Q_D(const GithubNotificationsModel);
+//
+//    return d->database.accountIdFilter();
+//}
 
 //void GithubNotificationsModel::setAccountIdFilter(const QVariantList &accountIds)
 //{
@@ -118,9 +118,9 @@ void GithubNotificationsModel::notificationsChanged()
 
         QVariantList accountsVariant;
         accountsVariant.append(notification->accountId());
-        eventMap.insert(GithubNotificationsModel::Accounts, accountsVariant);
+        //eventMap.insert(GithubNotificationsModel::Accounts, accountsVariant);
 
-        eventMap.insert(GithubNotificationsModel::ClientId, notification->clientId());
+        //eventMap.insert(GithubNotificationsModel::ClientId, notification->clientId());
 
         data.append(eventMap);
     }

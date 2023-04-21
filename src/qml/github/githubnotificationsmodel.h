@@ -27,7 +27,7 @@ class GithubNotificationsModelPrivate;
 class GithubNotificationsModel : public AbstractSocialCacheModel
 {
     Q_OBJECT
-    Q_PROPERTY(QVariantList accountIdFilter READ accountIdFilter WRITE setAccountIdFilter NOTIFY accountIdFilterChanged)
+    //Q_PROPERTY(QVariantList accountIdFilter READ accountIdFilter WRITE setAccountIdFilter NOTIFY accountIdFilterChanged)
 
     Q_ENUMS(GithubNotificationsRole)
 public:
