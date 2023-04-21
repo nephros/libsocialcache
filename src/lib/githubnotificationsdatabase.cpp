@@ -199,7 +199,6 @@ void GithubNotificationsDatabase::addGithubNotification(int accountId,
 
 void GithubNotificationsDatabase::removeNotifications(int accountId)
 {
-    qDebug() << Q_FUNC_INFO << "called";
     Q_D(GithubNotificationsDatabase);
 
     QMutexLocker locker(&d->mutex);
@@ -211,7 +210,6 @@ void GithubNotificationsDatabase::removeNotifications(int accountId)
 
 void GithubNotificationsDatabase::removeNotification(const QString &notificationId)
 {
-    qDebug() << Q_FUNC_INFO << "called";
     Q_D(GithubNotificationsDatabase);
 
     QMutexLocker locker(&d->mutex);
@@ -222,7 +220,6 @@ void GithubNotificationsDatabase::removeNotification(const QString &notification
 
 void GithubNotificationsDatabase::removeNotifications(const QStringList &notificationIds)
 {
-    qDebug() << Q_FUNC_INFO << "called";
     Q_D(GithubNotificationsDatabase);
 
     QMutexLocker locker(&d->mutex);
@@ -254,7 +251,6 @@ void GithubNotificationsDatabase::sync()
 
 QList<GithubNotification::ConstPtr> GithubNotificationsDatabase::notifications()
 {
-    qDebug() << Q_FUNC_INFO << "called";
     QList<GithubNotification::ConstPtr> data;
 
     QSqlQuery query;
@@ -307,6 +303,7 @@ bool GithubNotificationsDatabase::write()
     QSqlQuery query;
 
     if (!removeNotificationsFromAccounts.isEmpty()) {
+        qDebug() << Q_FUNC_INFO << "removing...";
         QVariantList accountIds;
 
         Q_FOREACH (const int accountId, removeNotificationsFromAccounts) {
@@ -320,6 +317,7 @@ bool GithubNotificationsDatabase::write()
     }
 
     if (!removeNotifications.isEmpty()) {
+        qDebug() << Q_FUNC_INFO << "removing...";
         QVariantList notifIds;
 
         Q_FOREACH (const QString notifId, removeNotifications) {
@@ -398,7 +396,6 @@ bool GithubNotificationsDatabase::createTables(QSqlDatabase database) const
 
 bool GithubNotificationsDatabase::dropTables(QSqlDatabase database) const
 {
-    qDebug() << Q_FUNC_INFO << "called";
     QSqlQuery query(database);
 
     if (!query.exec(QStringLiteral("DROP TABLE IF EXISTS notifications"))) {
