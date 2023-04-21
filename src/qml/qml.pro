@@ -69,7 +69,7 @@ SOURCES += plugin.cpp \
     vk/vkimagecachemodel.cpp \
     vk/vkimagedownloader.cpp \
     vk/vkpostsmodel.cpp \
-    facebook/facebooknotificationsmodel.cpp
+    github/githubnotificationsmodel.cpp
 
 OTHER_FILES += qmldir plugins.qmltypes
 import.files = qmldir plugins.qmltypes
