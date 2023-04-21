@@ -189,12 +189,15 @@ void GithubNotificationsDatabase::addGithubNotification(int accountId,
                                                 const QString &url,
                                                 const QDateTime &createdTime)
 {
+    qDebug() << Q_FUNC_INFO << "called";
     Q_D(GithubNotificationsDatabase);
+    qDebug() << Q_FUNC_INFO << "creating" << accountId, type, from, repo, avatar, url, createdTime;
     d->insertNotifications[accountId].append(GithubNotification::create(QString(), accountId, type, from, repo, avatar, url, createdTime));
 }
 
 void GithubNotificationsDatabase::removeNotifications(int accountId)
 {
+    qDebug() << Q_FUNC_INFO << "called";
     Q_D(GithubNotificationsDatabase);
 
     QMutexLocker locker(&d->mutex);
@@ -206,6 +209,7 @@ void GithubNotificationsDatabase::removeNotifications(int accountId)
 
 void GithubNotificationsDatabase::removeNotification(const QString &notificationId)
 {
+    qDebug() << Q_FUNC_INFO << "called";
     Q_D(GithubNotificationsDatabase);
 
     QMutexLocker locker(&d->mutex);
@@ -216,6 +220,7 @@ void GithubNotificationsDatabase::removeNotification(const QString &notification
 
 void GithubNotificationsDatabase::removeNotifications(const QStringList &notificationIds)
 {
+    qDebug() << Q_FUNC_INFO << "called";
     Q_D(GithubNotificationsDatabase);
 
     QMutexLocker locker(&d->mutex);
@@ -226,6 +231,7 @@ void GithubNotificationsDatabase::removeNotifications(const QStringList &notific
 
 void GithubNotificationsDatabase::sync()
 {
+    qDebug() << Q_FUNC_INFO << "called";
     Q_D(GithubNotificationsDatabase);
 
     {
@@ -246,6 +252,7 @@ void GithubNotificationsDatabase::sync()
 
 QList<GithubNotification::ConstPtr> GithubNotificationsDatabase::notifications()
 {
+    qDebug() << Q_FUNC_INFO << "called";
     QList<GithubNotification::ConstPtr> data;
 
     QSqlQuery query;
@@ -279,6 +286,7 @@ void GithubNotificationsDatabase::readFinished()
 
 bool GithubNotificationsDatabase::write()
 {
+    qDebug() << Q_FUNC_INFO << "called";
     Q_D(GithubNotificationsDatabase);
 
     QMutexLocker locker(&d->mutex);
@@ -305,6 +313,7 @@ bool GithubNotificationsDatabase::write()
 
         query = prepare(QStringLiteral("DELETE FROM notifications WHERE accountId = :accountId"));
         query.bindValue(QStringLiteral(":accountId"), accountIds);
+        qDebug() << Q_FUNC_INFO << "executing DELETE from" << accountIds;
         executeBatchSocialCacheQuery(query);
     }
 
@@ -317,6 +326,8 @@ bool GithubNotificationsDatabase::write()
 
         query = prepare(QStringLiteral("DELETE FROM notifications WHERE identifier = :identifier"));
         query.bindValue(QStringLiteral(":identifier"), notifIds);
+        qDebug() << Q_FUNC_INFO << "executing DELETE from" << notifIds;
+        executeBatchSocialCacheQuery(query);
         executeBatchSocialCacheQuery(query);
     }
 
@@ -354,6 +365,7 @@ bool GithubNotificationsDatabase::write()
         query.bindValue(QStringLiteral(":url"), urls);
         query.bindValue(QStringLiteral(":createdTime"), createdTimes);
 
+        qDebug() << Q_FUNC_INFO << "executing INSERT or REPLACE for" << accountIds;
         executeBatchSocialCacheQuery(query);
     }
 
@@ -362,6 +374,7 @@ bool GithubNotificationsDatabase::write()
 
 bool GithubNotificationsDatabase::createTables(QSqlDatabase database) const
 {
+    qDebug() << Q_FUNC_INFO << "called";
     QSqlQuery query(database);
 
     query.prepare("CREATE TABLE IF NOT EXISTS notifications ("\
@@ -383,6 +396,7 @@ bool GithubNotificationsDatabase::createTables(QSqlDatabase database) const
 
 bool GithubNotificationsDatabase::dropTables(QSqlDatabase database) const
 {
+    qDebug() << Q_FUNC_INFO << "called";
     QSqlQuery query(database);
 
     if (!query.exec(QStringLiteral("DROP TABLE IF EXISTS notifications"))) {
