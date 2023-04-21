@@ -26,7 +26,7 @@
 #include <QtCore/QtDebug>
 
 static const char *DB_NAME = "githubNotifications.db";
-static const int VERSION = 1;
+static const int VERSION = 0;
 
 struct GithubNotificationPrivate
 {
