@@ -50,18 +50,13 @@ GithubNotificationsModel::GithubNotificationsModel(QObject *parent)
 QHash<int, QByteArray> GithubNotificationsModel::roleNames() const
 {
     QHash<int, QByteArray> roleNames;
-    roleNames.insert(NotificationId, "notificationId");
+    roleNames.insert(NotificationId, "identifier");
+    roleNames.insert(Type, "type");
     roleNames.insert(From, "from");
-    roleNames.insert(To, "to");
-    roleNames.insert(Timestamp, "timestamp");
-    roleNames.insert(Title, "title");
-    roleNames.insert(Link, "link");
-    roleNames.insert(AppId, "appId");
-    roleNames.insert(Object, "object");
-    roleNames.insert(Unread, "unread");
-    roleNames.insert(Accounts, "accounts");
-    roleNames.insert(ClientId, "clientId");
-
+    roleNames.insert(Repo, "repo");
+    roleNames.insert(Avatar, "avatar");
+    roleNames.insert(Link, "url");
+    roleNames.insert(TimeStamp, "createdTime");
     return roleNames;
 }
 
@@ -113,16 +108,13 @@ void GithubNotificationsModel::notificationsChanged()
     Q_FOREACH (const GithubNotification::ConstPtr &notification, notificationsData) {
         QMap<int, QVariant> eventMap;
 
-        eventMap.insert(GithubNotificationsModel::NotificationId, notification->githubId());
+        eventMap.insert(GithubNotificationsModel::NotificationId, notification->identifier());
+        eventMap.insert(GithubNotificationsModel::Type, notification->type());
         eventMap.insert(GithubNotificationsModel::From, notification->from());
-        eventMap.insert(GithubNotificationsModel::To, notification->to());
-        eventMap.insert(GithubNotificationsModel::Timestamp, notification->updatedTime());
-        eventMap.insert(GithubNotificationsModel::Title, notification->title());
-        eventMap.insert(GithubNotificationsModel::Link, notification->link());
-        eventMap.insert(GithubNotificationsModel::AppId, notification->application());
-        eventMap.insert(GithubNotificationsModel::Object, notification->object());
-        eventMap.insert(GithubNotificationsModel::Unread, notification->unread());
-        eventMap.insert(GithubNotificationsModel::Accounts, notification->accountId());
+        eventMap.insert(GithubNotificationsModel::Repo, notification->repo());
+        eventMap.insert(GithubNotificationsModel::Avatar, notification->avatar());
+        eventMap.insert(GithubNotificationsModel::Link, notification->url());
+        eventMap.insert(GithubNotificationsModel::TimeStamp, notification->createdTime());
 
         QVariantList accountsVariant;
         accountsVariant.append(notification->accountId());

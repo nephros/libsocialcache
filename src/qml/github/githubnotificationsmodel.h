@@ -33,16 +33,12 @@ class GithubNotificationsModel : public AbstractSocialCacheModel
 public:
     enum GithubNotificationsRole {
         NotificationId = 0,
+        Type,
         From,
-        To,
-        Timestamp,
-        Title,
+        Repo,
+        Avatar,
         Link,
-        AppId,
-        Object,
-        Accounts,
-        ClientId,
-        Unread
+        TimeStamp,
     };
     explicit GithubNotificationsModel(QObject *parent = 0);
     QHash<int, QByteArray> roleNames() const;
