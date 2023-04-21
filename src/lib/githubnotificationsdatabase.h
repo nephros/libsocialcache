@@ -85,6 +85,7 @@ public:
                            const QString &url,
                            const QDateTime &createdTime);
 
+    void removeAllNotifications();
     void removeNotifications(int accountId);
     void removeNotification(const QString &notificationId);
     void removeNotifications(const QStringList &notificationIds);

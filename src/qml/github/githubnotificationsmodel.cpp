@@ -96,7 +96,7 @@ void GithubNotificationsModel::clear()
 {
     Q_D(GithubNotificationsModel);
     d->clearData();
-    d->database.removeNotifications(accountId);
+    d->database.removeAllNotifications();
 }
 
 void GithubNotificationsModel::notificationsChanged()

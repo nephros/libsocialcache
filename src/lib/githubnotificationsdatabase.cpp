@@ -195,6 +195,12 @@ void GithubNotificationsDatabase::addGithubNotification(int accountId,
     d->insertNotifications[accountId].append(GithubNotification::create(QString(), accountId, type, from, repo, avatar, url, createdTime));
 }
 
+void GithubNotificationsDatabase::removeAllNotifications()
+{
+   //FIXME: thisis in the qml plugin
+   qWarning() << Q_FUNC_INFO << "Not implemented";
+}
+
 void GithubNotificationsDatabase::removeNotifications(int accountId)
 {
     Q_D(GithubNotificationsDatabase);
