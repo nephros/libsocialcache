@@ -51,11 +51,11 @@ QHash<int, QByteArray> GithubNotificationsModel::roleNames() const
 {
     QHash<int, QByteArray> roleNames;
     roleNames.insert(NotificationId, "identifier");
-    roleNames.insert(Type, "type");
-    roleNames.insert(From, "from");
-    roleNames.insert(Repo, "repo");
+    roleNames.insert(Type,   "type");
+    roleNames.insert(From,   "from");
+    roleNames.insert(Repo,   "repo");
     roleNames.insert(Avatar, "avatar");
-    roleNames.insert(Link, "url");
+    roleNames.insert(Link,    "url");
     roleNames.insert(TimeStamp, "createdTime");
     return roleNames;
 }
