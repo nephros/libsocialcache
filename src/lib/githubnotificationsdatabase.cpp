@@ -253,7 +253,7 @@ QList<GithubNotification::ConstPtr> GithubNotificationsDatabase::notifications()
 
     QSqlQuery query;
     query = prepare(QStringLiteral(
-                "SELECT identifier, accountId, type, from, repo, avatar, url, createdTime " \
+                "SELECT identifier, accountId, typeStr, fromStr, repoStr, avatarUrl, url, createdTime " \
                 "FROM notifications ORDER BY createdTime DESC"));
 
     if (!query.exec()) {
@@ -352,14 +352,14 @@ bool GithubNotificationsDatabase::write()
 
         query = prepare(QStringLiteral(
                     "INSERT OR REPLACE INTO notifications ("
-                    " accountId, type, from, repo, avatar, url, createdTime) "
+                    "accountId, typeStr, fromStr, repoStr, avatarUrl, url, createdTime) "
                     "VALUES("
-                    " :accountId, :type, :from, :repo, :avatar, :url, :createdTime)"));
+                    ":accountId, :typeStr, :fromStr, :repoStr, :avatarUrl, :url, :createdTime)"));
         query.bindValue(QStringLiteral(":accountId"), accountIds);
-        query.bindValue(QStringLiteral(":type"), types);
-        query.bindValue(QStringLiteral(":from"), froms);
-        query.bindValue(QStringLiteral(":repo"), repos);
-        query.bindValue(QStringLiteral(":avatar"), avatars);
+        query.bindValue(QStringLiteral(":typeStr"), types);
+        query.bindValue(QStringLiteral(":fromStr"), froms);
+        query.bindValue(QStringLiteral(":repoStr"), repos);
+        query.bindValue(QStringLiteral(":avatarUrl"), avatars);
         query.bindValue(QStringLiteral(":url"), urls);
         query.bindValue(QStringLiteral(":createdTime"), createdTimes);
 
@@ -378,10 +378,10 @@ bool GithubNotificationsDatabase::createTables(QSqlDatabase database) const
     query.prepare("CREATE TABLE IF NOT EXISTS notifications ("\
                   "identifier INTEGER UNIQUE PRIMARY KEY AUTOINCREMENT,"\
                   "accountId INTEGER,"\
-                  "type TEXT,"\
-                  "from TEXT,"\
-                  "repo TEXT,"\
-                  "avatar TEXT,"\
+                  "typeStr TEXT,"\
+                  "fromStr TEXT,"\
+                  "repoStr TEXT,"\
+                  "avatarUrl TEXT,"\
                   "url TEXT,"\
                   "createdTime INTEGER)");
     if (!query.exec()) {
