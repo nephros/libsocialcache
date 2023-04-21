@@ -34,6 +34,7 @@
 #include "dropbox/dropboximagecachemodel.h"
 #include "vk/vkpostsmodel.h"
 #include "vk/vkimagecachemodel.h"
+#include "github/githubnotificationsmodel.h"
 
 #ifndef NO_DEPS
 #include "synchelper.h"

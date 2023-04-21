@@ -51,7 +51,8 @@ HEADERS += \
     vk/vkimagecachemodel.h \
     vk/vkimagedownloader.h \
     vk/vkimagedownloader_p.h \
-    vk/vkpostsmodel.h
+    vk/vkpostsmodel.h \
+    github/githubnotificationsmodel.h
 
 SOURCES += plugin.cpp \
     abstractsocialcachemodel.cpp \
@@ -67,7 +68,8 @@ SOURCES += plugin.cpp \
     dropbox/dropboximagedownloader.cpp \
     vk/vkimagecachemodel.cpp \
     vk/vkimagedownloader.cpp \
-    vk/vkpostsmodel.cpp
+    vk/vkpostsmodel.cpp \
+    facebook/facebooknotificationsmodel.cpp
 
 OTHER_FILES += qmldir plugins.qmltypes
 import.files = qmldir plugins.qmltypes
