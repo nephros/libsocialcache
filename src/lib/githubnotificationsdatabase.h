@@ -38,6 +38,7 @@ public:
     static GithubNotification::Ptr create(const QString &identifier,
                                       int accountId,
                                       const QString &type,
+                                      const QString &title,
                                       const QString &from,
                                       const QString &repo,
                                       const QString &avatar,
@@ -45,6 +46,7 @@ public:
                                       const QDateTime &createdTime);
     QString identifier() const;
     QString type() const;
+    QString title() const;
     QString from() const;
     QString repo() const;
     QString avatar() const;
@@ -60,6 +62,7 @@ private:
     explicit GithubNotification(const QString &identifier,
                             int accountId,
                             const QString &type,
+                            const QString &title,
                             const QString &from,
                             const QString &repo,
                             const QString &avatar,
@@ -79,6 +82,7 @@ public:
 
     void addGithubNotification(int accountId,
                            const QString &type,
+                           const QString &title,
                            const QString &from,
                            const QString &repo,
                            const QString &avatar,

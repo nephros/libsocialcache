@@ -33,6 +33,7 @@ struct GithubNotificationPrivate
     explicit GithubNotificationPrivate(const QString &identifier,
                                    int accountId,
                                    const QString &type,
+                                   const QString &title,
                                    const QString &from,
                                    const QString &repo,
                                    const QString &avatar,
@@ -42,6 +43,7 @@ struct GithubNotificationPrivate
     QString m_id;
     int m_accountId;
     QString m_type;
+    QString m_title;
     QString m_from;
     QString m_repo;
     QString m_avatar;
@@ -52,6 +54,7 @@ struct GithubNotificationPrivate
 GithubNotificationPrivate::GithubNotificationPrivate(const QString &identifier,
                                              int accountId,
                                              const QString &type,
+                                             const QString &title,
                                              const QString &from,
                                              const QString &repo,
                                              const QString &avatar,
@@ -60,6 +63,7 @@ GithubNotificationPrivate::GithubNotificationPrivate(const QString &identifier,
     : m_id(identifier)
     , m_accountId(accountId)
     , m_type(type)
+    , m_title(title)
     , m_from(from)
     , m_repo(repo)
     , m_avatar(avatar)
@@ -71,25 +75,27 @@ GithubNotificationPrivate::GithubNotificationPrivate(const QString &identifier,
 GithubNotification::GithubNotification(const QString &identifier,
                                int accountId,
                                const QString &type,
+                               const QString &title,
                                const QString &from,
                                const QString &repo,
                                const QString &avatar,
                                const QString &url,
                                const QDateTime &createdTime)
-    : d_ptr(new GithubNotificationPrivate(identifier, accountId, type, from, repo, avatar, url, createdTime))
+    : d_ptr(new GithubNotificationPrivate(identifier, accountId, type, title, from, repo, avatar, url, createdTime))
 {
 }
 
 GithubNotification::Ptr GithubNotification::create(const QString &identifier,
                                            int accountId,
                                            const QString &type,
+                                           const QString &title,
                                            const QString &from,
                                            const QString &repo,
                                            const QString &avatar,
                                            const QString &url,
                                            const QDateTime &createdTime)
 {
-    return GithubNotification::Ptr(new GithubNotification(identifier, accountId, type, from, repo, avatar, url, createdTime));
+    return GithubNotification::Ptr(new GithubNotification(identifier, accountId, type, title, from, repo, avatar, url, createdTime));
 }
 
 GithubNotification::~GithubNotification()
@@ -100,6 +106,12 @@ QString GithubNotification::identifier() const
 {
     Q_D(const GithubNotification);
     return d->m_id;
+}
+
+QString GithubNotification::title() const
+{
+    Q_D(const GithubNotification);
+    return d->m_title;
 }
 
 QString GithubNotification::type() const
@@ -183,6 +195,7 @@ GithubNotificationsDatabase::~GithubNotificationsDatabase()
 
 void GithubNotificationsDatabase::addGithubNotification(int accountId,
                                                 const QString &type,
+                                                const QString &title,
                                                 const QString &from,
                                                 const QString &repo,
                                                 const QString &avatar,
@@ -191,8 +204,8 @@ void GithubNotificationsDatabase::addGithubNotification(int accountId,
 {
     qDebug() << Q_FUNC_INFO << "called";
     Q_D(GithubNotificationsDatabase);
-    qDebug() << Q_FUNC_INFO << "creating" << accountId << type << from << repo << avatar << url << createdTime;
-    d->insertNotifications[accountId].append(GithubNotification::create(QString(), accountId, type, from, repo, avatar, url, createdTime));
+    qDebug() << Q_FUNC_INFO << "creating" << accountId << type << title << from << repo << avatar << url << createdTime;
+    d->insertNotifications[accountId].append(GithubNotification::create(QString(), accountId, type, title, from, repo, avatar, url, createdTime));
 }
 
 void GithubNotificationsDatabase::removeAllNotifications()
@@ -259,7 +272,7 @@ QList<GithubNotification::ConstPtr> GithubNotificationsDatabase::notifications()
 
     QSqlQuery query;
     query = prepare(QStringLiteral(
-                "SELECT identifier, accountId, typeStr, fromStr, repoStr, avatarUrl, url, createdTime " \
+                "SELECT identifier, accountId, typeStr, titleStr, fromStr, repoStr, avatarUrl, url, createdTime " \
                 "FROM notifications ORDER BY createdTime DESC"));
 
     if (!query.exec()) {
@@ -271,11 +284,12 @@ QList<GithubNotification::ConstPtr> GithubNotificationsDatabase::notifications()
         data.append(GithubNotification::create(QString::number(query.value(0).toInt()),         // id
                                            query.value(1).toInt(),                          // accountId
                                            query.value(2).toString(),                       // type
-                                           query.value(3).toString(),                       // from
-                                           query.value(4).toString(),                       // repo
-                                           query.value(5).toString(),                       // avatar
-                                           query.value(6).toString(),                       // url
-                                           QDateTime::fromTime_t(query.value(7).toInt()))); // createdTime
+                                           query.value(3).toString(),                       // title
+                                           query.value(4).toString(),                       // from
+                                           query.value(5).toString(),                       // repo
+                                           query.value(6).toString(),                       // avatar
+                                           query.value(7).toString(),                       // url
+                                           QDateTime::fromTime_t(query.value(8).toInt()))); // createdTime
     }
 
     return data;
@@ -338,6 +352,7 @@ bool GithubNotificationsDatabase::write()
     if (!insertNotifications.isEmpty()) {
         QVariantList accountIds;
         QVariantList types;
+        QVariantList titles;
         QVariantList froms;
         QVariantList repos;
         QVariantList avatars;
@@ -347,22 +362,24 @@ bool GithubNotificationsDatabase::write()
         Q_FOREACH (const QList<GithubNotification::ConstPtr> &notifications, insertNotifications) {
             Q_FOREACH (const GithubNotification::ConstPtr &notification, notifications) {
                 accountIds.append(notification->accountId());
+                types.append(notification->type());
+                titles.append(notification->title());
                 froms.append(notification->from());
                 repos.append(notification->repo());
                 avatars.append(notification->avatar());
                 urls.append(notification->url());
                 createdTimes.append(notification->createdTime().toTime_t());
-                types.append(notification->type());
             }
         }
 
         query = prepare(QStringLiteral(
                     "INSERT OR REPLACE INTO notifications ("
-                    "accountId, typeStr, fromStr, repoStr, avatarUrl, url, createdTime) "
+                    "accountId, typeStr, titleStr, fromStr, repoStr, avatarUrl, url, createdTime) "
                     "VALUES("
-                    ":accountId, :typeStr, :fromStr, :repoStr, :avatarUrl, :url, :createdTime)"));
+                    ":accountId, :typeStr, :titleStr, :fromStr, :repoStr, :avatarUrl, :url, :createdTime)"));
         query.bindValue(QStringLiteral(":accountId"), accountIds);
         query.bindValue(QStringLiteral(":typeStr"), types);
+        query.bindValue(QStringLiteral(":titleStr"), titles);
         query.bindValue(QStringLiteral(":fromStr"), froms);
         query.bindValue(QStringLiteral(":repoStr"), repos);
         query.bindValue(QStringLiteral(":avatarUrl"), avatars);
@@ -385,6 +402,7 @@ bool GithubNotificationsDatabase::createTables(QSqlDatabase database) const
                   "identifier INTEGER UNIQUE PRIMARY KEY AUTOINCREMENT,"\
                   "accountId INTEGER,"\
                   "typeStr TEXT,"\
+                  "titleStr TEXT,"\
                   "fromStr TEXT,"\
                   "repoStr TEXT,"\
                   "avatarUrl TEXT,"\

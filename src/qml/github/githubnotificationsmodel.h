@@ -34,6 +34,7 @@ public:
     enum GithubNotificationsRole {
         NotificationId = 0,
         Type,
+        Title,
         From,
         Repo,
         Avatar,
