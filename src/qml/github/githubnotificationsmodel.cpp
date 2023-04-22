@@ -31,6 +31,7 @@ public:
 
 private:
     Q_DECLARE_PUBLIC(GithubNotificationsModel)
+    QVariantList m_accountIdFilterStub;
 };
 
 GithubNotificationsModelPrivate::GithubNotificationsModelPrivate(GithubNotificationsModel *q)
@@ -60,19 +61,25 @@ QHash<int, QByteArray> GithubNotificationsModel::roleNames() const
     return roleNames;
 }
 
-//QVariantList GithubNotificationsModel::accountIdFilter() const
-//{
-//    Q_D(const GithubNotificationsModel);
-//
-//    return d->database.accountIdFilter();
-//}
+QVariantList GithubNotificationsModel::accountIdFilter() const
+{
+    Q_D(const GithubNotificationsModel);
 
-//void GithubNotificationsModel::setAccountIdFilter(const QVariantList &accountIds)
-//{
-//    Q_D(GithubNotificationsModel);
-//
-//    d->database.setAccountIdFilter(accountIds);
-//}
+    //return d->database.accountIdFilter();
+    if (!m_accountIdFilterStub)
+        m_accountIdFilterStub = new QVariantList();
+    return m_accountIdFilterStub;
+}
+
+void GithubNotificationsModel::setAccountIdFilter(const QVariantList &accountIds)
+{
+    Q_D(GithubNotificationsModel);
+
+    if (!m_accountIdFilterStub)
+        m_accountIdFilterStub = new QVariantList();
+    //d->database.setAccountIdFilter(accountIds);
+    m_accountIdFilterStub = accountIds;
+}
 
 void GithubNotificationsModel::refresh()
 {
