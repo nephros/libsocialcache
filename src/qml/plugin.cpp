@@ -140,6 +140,7 @@ public:
         qmlRegisterSingletonType<VKImageDownloader>(uri, 1, 0, "VKImageDownloader",
                                                           &vkImageDownloader_provider);
 
+        qmlRegisterType<GithubNotificationsModel>(uri, 1, 0, "GithubNotificationsModel");
 #ifndef NO_DEPS
         qmlRegisterUncreatableType<SocialSyncInterface>(uri, 1, 0, "SocialSync",
                                                         QLatin1String("Cannot create"));
