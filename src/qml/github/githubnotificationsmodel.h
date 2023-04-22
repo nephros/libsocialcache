@@ -59,7 +59,7 @@ private Q_SLOTS:
 
 private:
     Q_DECLARE_PRIVATE(GithubNotificationsModel)
-    QVariantList m_accountIdFilterStub const;
+    QVariantList m_accountIdFilterStub;
 };
 
 #endif // GITHUBNOTIFICATIONSMODEL_H
