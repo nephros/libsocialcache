@@ -50,7 +50,7 @@ GithubNotificationsModel::GithubNotificationsModel(QObject *parent)
 QHash<int, QByteArray> GithubNotificationsModel::roleNames() const
 {
     QHash<int, QByteArray> roleNames;
-    roleNames.insert(NotificationId, "identifier");
+    roleNames.insert(NotificationId, "threadId");
     roleNames.insert(Type,   "type");
     roleNames.insert(Title,  "title");
     roleNames.insert(From,   "from");
@@ -112,7 +112,7 @@ void GithubNotificationsModel::notificationsChanged()
     Q_FOREACH (const GithubNotification::ConstPtr &notification, notificationsData) {
         QMap<int, QVariant> eventMap;
 
-        eventMap.insert(GithubNotificationsModel::NotificationId, notification->identifier());
+        eventMap.insert(GithubNotificationsModel::NotificationId, notification->threadId());
         eventMap.insert(GithubNotificationsModel::Type, notification->type());
         eventMap.insert(GithubNotificationsModel::Title, notification->title());
         eventMap.insert(GithubNotificationsModel::From, notification->from());

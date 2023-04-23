@@ -35,8 +35,8 @@ public:
 
     virtual ~GithubNotification();
 
-    static GithubNotification::Ptr create(const QString &identifier,
-                                      int accountId,
+    static GithubNotification::Ptr create(int accountId,
+                                      const int &threadId,
                                       const QString &type,
                                       const QString &title,
                                       const QString &from,
@@ -46,7 +46,8 @@ public:
                                       const QString &avatar,
                                       const QString &url,
                                       const QDateTime &createdTime);
-    QString identifier() const;
+    int accountId() const;
+    int threadId() const;
     QString type() const;
     QString title() const;
     QString from() const;
@@ -56,15 +57,14 @@ public:
     QString avatar() const;
     QString url() const;
     QDateTime createdTime() const;
-    int accountId() const;
 
 
 protected:
     QScopedPointer<GithubNotificationPrivate> d_ptr;
 private:
     Q_DECLARE_PRIVATE(GithubNotification)
-    explicit GithubNotification(const QString &identifier,
-                            int accountId,
+    explicit GithubNotification(int accountId,
+                            const int &threadId,
                             const QString &type,
                             const QString &title,
                             const QString &from,
@@ -91,6 +91,7 @@ public:
     void setAccountIdFilter(const QVariantList &accountIds);
 
     void addGithubNotification(int accountId,
+                           const int &threadId,
                            const QString &type,
                            const QString &title,
                            const QString &from,
