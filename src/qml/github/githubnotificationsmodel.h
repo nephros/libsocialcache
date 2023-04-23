@@ -36,6 +36,8 @@ public:
         Type,
         Title,
         From,
+        Reason,
+        Unread,
         Repo,
         Avatar,
         Link,

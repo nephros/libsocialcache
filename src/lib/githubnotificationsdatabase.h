@@ -40,6 +40,8 @@ public:
                                       const QString &type,
                                       const QString &title,
                                       const QString &from,
+                                      const QString &reason,
+                                      const bool    &unread,
                                       const QString &repo,
                                       const QString &avatar,
                                       const QString &url,
@@ -48,6 +50,8 @@ public:
     QString type() const;
     QString title() const;
     QString from() const;
+    QString reason() const;
+    bool    unread() const;
     QString repo() const;
     QString avatar() const;
     QString url() const;
@@ -64,6 +68,8 @@ private:
                             const QString &type,
                             const QString &title,
                             const QString &from,
+                            const QString &reason,
+                            const bool    &unread,
                             const QString &repo,
                             const QString &avatar,
                             const QString &url,
@@ -84,6 +90,8 @@ public:
                            const QString &type,
                            const QString &title,
                            const QString &from,
+                           const QString &reason,
+                           const bool    &unread,
                            const QString &repo,
                            const QString &avatar,
                            const QString &url,

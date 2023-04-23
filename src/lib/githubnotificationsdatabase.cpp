@@ -35,6 +35,8 @@ struct GithubNotificationPrivate
                                    const QString &type,
                                    const QString &title,
                                    const QString &from,
+                                   const QString &reason,
+                                   const bool    &unread,
                                    const QString &repo,
                                    const QString &avatar,
                                    const QString &url,
@@ -45,6 +47,8 @@ struct GithubNotificationPrivate
     QString m_type;
     QString m_title;
     QString m_from;
+    QString m_reason;
+    bool    m_unread;
     QString m_repo;
     QString m_avatar;
     QString m_url;
@@ -56,6 +60,8 @@ GithubNotificationPrivate::GithubNotificationPrivate(const QString &identifier,
                                              const QString &type,
                                              const QString &title,
                                              const QString &from,
+                                             const QString &reason,
+                                             const bool    &unread,
                                              const QString &repo,
                                              const QString &avatar,
                                              const QString &url,
@@ -65,6 +71,8 @@ GithubNotificationPrivate::GithubNotificationPrivate(const QString &identifier,
     , m_type(type)
     , m_title(title)
     , m_from(from)
+    , m_reason(reason)
+    , m_unread(unread)
     , m_repo(repo)
     , m_avatar(avatar)
     , m_url(url)
@@ -77,11 +85,13 @@ GithubNotification::GithubNotification(const QString &identifier,
                                const QString &type,
                                const QString &title,
                                const QString &from,
+                               const QString &reason,
+                               const bool    &unread,
                                const QString &repo,
                                const QString &avatar,
                                const QString &url,
                                const QDateTime &createdTime)
-    : d_ptr(new GithubNotificationPrivate(identifier, accountId, type, title, from, repo, avatar, url, createdTime))
+    : d_ptr(new GithubNotificationPrivate(identifier, accountId, type, title, from, reason, unread, repo, avatar, url, createdTime))
 {
 }
 
@@ -90,12 +100,14 @@ GithubNotification::Ptr GithubNotification::create(const QString &identifier,
                                            const QString &type,
                                            const QString &title,
                                            const QString &from,
+                                           const QString &reason,
+                                           const bool    &unread,
                                            const QString &repo,
                                            const QString &avatar,
                                            const QString &url,
                                            const QDateTime &createdTime)
 {
-    return GithubNotification::Ptr(new GithubNotification(identifier, accountId, type, title, from, repo, avatar, url, createdTime));
+    return GithubNotification::Ptr(new GithubNotification(identifier, accountId, type, title, from, reason, unread, repo, avatar, url, createdTime));
 }
 
 GithubNotification::~GithubNotification()
@@ -124,6 +136,18 @@ QString GithubNotification::from() const
 {
     Q_D(const GithubNotification);
     return d->m_from;
+}
+
+QString GithubNotification::reason() const
+{
+    Q_D(const GithubNotification);
+    return d->m_reason;
+}
+
+bool GithubNotification::unread() const
+{
+    Q_D(const GithubNotification);
+    return d->m_unread;
 }
 
 QString GithubNotification::repo() const
@@ -197,20 +221,21 @@ void GithubNotificationsDatabase::addGithubNotification(int accountId,
                                                 const QString &type,
                                                 const QString &title,
                                                 const QString &from,
+                                                const QString &reason,
+                                                const bool    &unread,
                                                 const QString &repo,
                                                 const QString &avatar,
                                                 const QString &url,
                                                 const QDateTime &createdTime)
 {
-    qDebug() << Q_FUNC_INFO << "called";
     Q_D(GithubNotificationsDatabase);
-    qDebug() << Q_FUNC_INFO << "creating" << accountId << type << title << from << repo << avatar << url << createdTime;
-    d->insertNotifications[accountId].append(GithubNotification::create(QString(), accountId, type, title, from, repo, avatar, url, createdTime));
+    qDebug() << Q_FUNC_INFO << "creating" << accountId << type << title << from << reason << unread << repo << avatar << url << createdTime;
+    d->insertNotifications[accountId].append(GithubNotification::create(QString(), accountId, type, title, from, reason, unread, repo, avatar, url, createdTime));
 }
 
 void GithubNotificationsDatabase::removeAllNotifications()
 {
-   //FIXME: thisis in the qml plugin
+   //FIXME: this is in the qml plugin
    qWarning() << Q_FUNC_INFO << "Not implemented";
 }
 
@@ -247,7 +272,6 @@ void GithubNotificationsDatabase::removeNotifications(const QStringList &notific
 
 void GithubNotificationsDatabase::sync()
 {
-    qDebug() << Q_FUNC_INFO << "called";
     Q_D(GithubNotificationsDatabase);
 
     {
@@ -272,7 +296,7 @@ QList<GithubNotification::ConstPtr> GithubNotificationsDatabase::notifications()
 
     QSqlQuery query;
     query = prepare(QStringLiteral(
-                "SELECT identifier, accountId, typeStr, titleStr, fromStr, repoStr, avatarUrl, url, createdTime " \
+                "SELECT identifier, accountId, typeStr, titleStr, fromStr, reasonStr, unread, repoStr, avatarUrl, url, createdTime " \
                 "FROM notifications ORDER BY createdTime DESC"));
 
     if (!query.exec()) {
@@ -286,10 +310,12 @@ QList<GithubNotification::ConstPtr> GithubNotificationsDatabase::notifications()
                                            query.value(2).toString(),                       // type
                                            query.value(3).toString(),                       // title
                                            query.value(4).toString(),                       // from
-                                           query.value(5).toString(),                       // repo
-                                           query.value(6).toString(),                       // avatar
-                                           query.value(7).toString(),                       // url
-                                           QDateTime::fromTime_t(query.value(8).toInt()))); // createdTime
+                                           query.value(5).toString(),                       // reason
+                                           query.value(6).toBool(),                         // unread
+                                           query.value(7).toString(),                       // repo
+                                           query.value(8).toString(),                       // avatar
+                                           query.value(9).toString(),                       // url
+                                           QDateTime::fromTime_t(query.value(10).toInt())));// createdTime
     }
 
     return data;
@@ -302,7 +328,6 @@ void GithubNotificationsDatabase::readFinished()
 
 bool GithubNotificationsDatabase::write()
 {
-    qDebug() << Q_FUNC_INFO << "called";
     Q_D(GithubNotificationsDatabase);
 
     QMutexLocker locker(&d->mutex);
@@ -354,6 +379,8 @@ bool GithubNotificationsDatabase::write()
         QVariantList types;
         QVariantList titles;
         QVariantList froms;
+        QVariantList reasons;
+        QVariantList unreads;
         QVariantList repos;
         QVariantList avatars;
         QVariantList urls;
@@ -365,6 +392,8 @@ bool GithubNotificationsDatabase::write()
                 types.append(notification->type());
                 titles.append(notification->title());
                 froms.append(notification->from());
+                reasons.append(notification->reason());
+                unreads.append(notification->unread());
                 repos.append(notification->repo());
                 avatars.append(notification->avatar());
                 urls.append(notification->url());
@@ -374,13 +403,15 @@ bool GithubNotificationsDatabase::write()
 
         query = prepare(QStringLiteral(
                     "INSERT OR REPLACE INTO notifications ("
-                    "accountId, typeStr, titleStr, fromStr, repoStr, avatarUrl, url, createdTime) "
+                    "accountId, typeStr, titleStr, fromStr, reasonStr, unread, repoStr, avatarUrl, url, createdTime) "
                     "VALUES("
-                    ":accountId, :typeStr, :titleStr, :fromStr, :repoStr, :avatarUrl, :url, :createdTime)"));
+                    ":accountId, :typeStr, :titleStr, :fromStr, :reasonStr, :unread, :repoStr, :avatarUrl, :url, :createdTime)"));
         query.bindValue(QStringLiteral(":accountId"), accountIds);
         query.bindValue(QStringLiteral(":typeStr"), types);
         query.bindValue(QStringLiteral(":titleStr"), titles);
         query.bindValue(QStringLiteral(":fromStr"), froms);
+        query.bindValue(QStringLiteral(":reasonStr"), reasons);
+        query.bindValue(QStringLiteral(":unread"), unreads);
         query.bindValue(QStringLiteral(":repoStr"), repos);
         query.bindValue(QStringLiteral(":avatarUrl"), avatars);
         query.bindValue(QStringLiteral(":url"), urls);
@@ -404,6 +435,8 @@ bool GithubNotificationsDatabase::createTables(QSqlDatabase database) const
                   "typeStr TEXT,"\
                   "titleStr TEXT,"\
                   "fromStr TEXT,"\
+                  "reasonStr TEXT,"\
+                  "unread BOOLEAN CHECK (unread IN (0, 1),"\
                   "repoStr TEXT,"\
                   "avatarUrl TEXT,"\
                   "url TEXT,"\
