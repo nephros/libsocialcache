@@ -81,10 +81,14 @@ class GithubNotificationsDatabasePrivate;
 class GithubNotificationsDatabase: public AbstractSocialCacheDatabase
 {
     Q_OBJECT
+    Q_PROPERTY(QVariantList accountIdFilter READ accountIdFilter WRITE setAccountIdFilter NOTIFY accountIdFilterChanged)
 
 public:
     explicit GithubNotificationsDatabase();
     ~GithubNotificationsDatabase();
+
+    QVariantList accountIdFilter() const;
+    void setAccountIdFilter(const QVariantList &accountIds);
 
     void addGithubNotification(int accountId,
                            const QString &type,
@@ -108,6 +112,7 @@ public:
 
 signals:
     void notificationsChanged();
+    void accountIdFilterChanged();
 
 protected:
     void readFinished();

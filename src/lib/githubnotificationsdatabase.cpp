@@ -190,6 +190,8 @@ public:
     QList<int> removeNotificationsFromAccounts;
     QStringList removeNotifications;
 
+    QVariantList accountIdFilter;
+
     struct {
         QMap<int, QList<GithubNotification::ConstPtr> > insertNotifications;
         QList<int> removeNotificationsFromAccounts;
@@ -215,6 +217,23 @@ GithubNotificationsDatabase::GithubNotificationsDatabase()
 GithubNotificationsDatabase::~GithubNotificationsDatabase()
 {
     wait();
+}
+
+QVariantList GithubNotificationsDatabase::accountIdFilter() const
+{
+    Q_D(const GithubNotificationsDatabase);
+
+    return d->accountIdFilter;
+}
+
+void GithubNotificationsDatabase::setAccountIdFilter(const QVariantList &accountIds)
+{
+    Q_D(GithubNotificationsDatabase);
+
+    if (d->accountIdFilter != accountIds) {
+        d->accountIdFilter = accountIds;
+        emit accountIdFilterChanged();
+    }
 }
 
 void GithubNotificationsDatabase::addGithubNotification(int accountId,
