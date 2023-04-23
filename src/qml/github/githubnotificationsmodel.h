@@ -40,6 +40,7 @@ public:
         Avatar,
         Link,
         TimeStamp,
+        Accounts,
     };
     explicit GithubNotificationsModel(QObject *parent = 0);
     QHash<int, QByteArray> roleNames() const;
