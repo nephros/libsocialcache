@@ -40,7 +40,7 @@ struct GithubNotificationPrivate
                                    const QString &repo,
                                    const QString &avatar,
                                    const QString &url,
-                                   const QDateTime &createdTime);
+                                   const QDateTime &updatedTime);
 
     int m_threadId;
     int m_accountId;
@@ -52,7 +52,7 @@ struct GithubNotificationPrivate
     QString m_repo;
     QString m_avatar;
     QString m_url;
-    QDateTime m_createdTime;
+    QDateTime m_updatedTime;
 };
 
 GithubNotificationPrivate::GithubNotificationPrivate(int accountId,
@@ -65,7 +65,7 @@ GithubNotificationPrivate::GithubNotificationPrivate(int accountId,
                                              const QString &repo,
                                              const QString &avatar,
                                              const QString &url,
-                                             const QDateTime &createdTime)
+                                             const QDateTime &updatedTime)
     : m_accountId(accountId)
     , m_threadId(threadId)
     , m_type(type)
@@ -76,7 +76,7 @@ GithubNotificationPrivate::GithubNotificationPrivate(int accountId,
     , m_repo(repo)
     , m_avatar(avatar)
     , m_url(url)
-    , m_createdTime(createdTime)
+    , m_updatedTime(updatedTime)
 {
 }
 
@@ -90,8 +90,8 @@ GithubNotification::GithubNotification(int accountId,
                                const QString &repo,
                                const QString &avatar,
                                const QString &url,
-                               const QDateTime &createdTime)
-    : d_ptr(new GithubNotificationPrivate(accountId, threadId, type, title, from, reason, unread, repo, avatar, url, createdTime))
+                               const QDateTime &updatedTime)
+    : d_ptr(new GithubNotificationPrivate(accountId, threadId, type, title, from, reason, unread, repo, avatar, url, updatedTime))
 {
 }
 
@@ -105,9 +105,9 @@ GithubNotification::Ptr GithubNotification::create(int accountId,
                                            const QString &repo,
                                            const QString &avatar,
                                            const QString &url,
-                                           const QDateTime &createdTime)
+                                           const QDateTime &updatedTime)
 {
-    return GithubNotification::Ptr(new GithubNotification(accountId, threadId, type, title, from, reason, unread, repo, avatar, url, createdTime));
+    return GithubNotification::Ptr(new GithubNotification(accountId, threadId, type, title, from, reason, unread, repo, avatar, url, updatedTime));
 }
 
 GithubNotification::~GithubNotification()
@@ -168,10 +168,10 @@ QString GithubNotification::url() const
     return d->m_url;
 }
 
-QDateTime GithubNotification::createdTime() const
+QDateTime GithubNotification::updatedTime() const
 {
     Q_D(const GithubNotification);
-    return d->m_createdTime;
+    return d->m_updatedTime;
 }
 
 int GithubNotification::accountId() const
@@ -246,11 +246,11 @@ void GithubNotificationsDatabase::addGithubNotification(int accountId,
                                                 const QString &repo,
                                                 const QString &avatar,
                                                 const QString &url,
-                                                const QDateTime &createdTime)
+                                                const QDateTime &updatedTime)
 {
     Q_D(GithubNotificationsDatabase);
     qDebug() << "adding entry for account" << accountId << ":" << title.left(12) << "…";
-    d->insertNotifications[accountId].append(GithubNotification::create(accountId, threadId, type, title, from, reason, unread, repo, avatar, url, createdTime));
+    d->insertNotifications[accountId].append(GithubNotification::create(accountId, threadId, type, title, from, reason, unread, repo, avatar, url, updatedTime));
 }
 
 void GithubNotificationsDatabase::removeAllNotifications()
@@ -316,8 +316,8 @@ QList<GithubNotification::ConstPtr> GithubNotificationsDatabase::notifications()
 
     QSqlQuery query;
     query = prepare(QStringLiteral(
-                "SELECT threadId, accountId, typeStr, titleStr, fromStr, reasonStr, unread, repoStr, avatarUrl, url, createdTime " \
-                "FROM notifications ORDER BY createdTime DESC"));
+                "SELECT threadId, accountId, typeStr, titleStr, fromStr, reasonStr, unread, repoStr, avatarUrl, url, updatedTime " \
+                "FROM notifications ORDER BY updatedTime DESC"));
 
     if (!query.exec()) {
         qWarning() << "Failed to query events:" << query.lastError().text();
@@ -336,7 +336,7 @@ QList<GithubNotification::ConstPtr> GithubNotificationsDatabase::notifications()
                                            query.value(7).toString(),                       // repo
                                            query.value(8).toString(),                       // avatar
                                            query.value(9).toString(),                       // url
-                                           QDateTime::fromTime_t(query.value(10).toInt())));// createdTime
+                                           QDateTime::fromTime_t(query.value(10).toInt())));// updatedTime
     }
 
     return data;
@@ -404,7 +404,7 @@ bool GithubNotificationsDatabase::write()
         QVariantList repos;
         QVariantList avatars;
         QVariantList urls;
-        QVariantList createdTimes;
+        QVariantList updatedTimes;
 
         Q_FOREACH (const QList<GithubNotification::ConstPtr> &notifications, insertNotifications) {
             Q_FOREACH (const GithubNotification::ConstPtr &notification, notifications) {
@@ -418,15 +418,15 @@ bool GithubNotificationsDatabase::write()
                 repos.append(notification->repo());
                 avatars.append(notification->avatar());
                 urls.append(notification->url());
-                createdTimes.append(notification->createdTime().toTime_t());
+                updatedTimes.append(notification->updatedTime().toTime_t());
             }
         }
 
         query = prepare(QStringLiteral(
                     "INSERT OR REPLACE INTO notifications ("
-                    "threadId, accountId, typeStr, titleStr, fromStr, reasonStr, unread, repoStr, avatarUrl, url, createdTime) "
+                    "threadId, accountId, typeStr, titleStr, fromStr, reasonStr, unread, repoStr, avatarUrl, url, updatedTime) "
                     "VALUES("
-                    ":threadId, :accountId, :typeStr, :titleStr, :fromStr, :reasonStr, :unread, :repoStr, :avatarUrl, :url, :createdTime)"));
+                    ":threadId, :accountId, :typeStr, :titleStr, :fromStr, :reasonStr, :unread, :repoStr, :avatarUrl, :url, :updatedTime)"));
         query.bindValue(QStringLiteral(":threadId"), threadIds);
         query.bindValue(QStringLiteral(":accountId"), accountIds);
         query.bindValue(QStringLiteral(":typeStr"), types);
@@ -437,7 +437,7 @@ bool GithubNotificationsDatabase::write()
         query.bindValue(QStringLiteral(":repoStr"), repos);
         query.bindValue(QStringLiteral(":avatarUrl"), avatars);
         query.bindValue(QStringLiteral(":url"), urls);
-        query.bindValue(QStringLiteral(":createdTime"), createdTimes);
+        query.bindValue(QStringLiteral(":updatedTime"), updatedTimes);
 
         executeBatchSocialCacheQuery(query);
     }
@@ -460,7 +460,7 @@ bool GithubNotificationsDatabase::createTables(QSqlDatabase database) const
                   "repoStr TEXT,"\
                   "avatarUrl TEXT,"\
                   "url TEXT,"\
-                  "createdTime INTEGER)");
+                  "updatedTime INTEGER)");
     if (!query.exec()) {
         qWarning() << Q_FUNC_INFO << "Unable to create notifications table: " << query.lastError().text();
         return false;

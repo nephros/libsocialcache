@@ -45,7 +45,7 @@ public:
                                       const QString &repo,
                                       const QString &avatar,
                                       const QString &url,
-                                      const QDateTime &createdTime);
+                                      const QDateTime &updatedTime);
     int accountId() const;
     int threadId() const;
     QString type() const;
@@ -56,7 +56,7 @@ public:
     QString repo() const;
     QString avatar() const;
     QString url() const;
-    QDateTime createdTime() const;
+    QDateTime updatedTime() const;
 
 
 protected:
@@ -73,7 +73,7 @@ private:
                             const QString &repo,
                             const QString &avatar,
                             const QString &url,
-                            const QDateTime &createdTime);
+                            const QDateTime &updatedTime);
 };
 
 
@@ -100,7 +100,7 @@ public:
                            const QString &repo,
                            const QString &avatar,
                            const QString &url,
-                           const QDateTime &createdTime);
+                           const QDateTime &updatedTime);
 
     void removeAllNotifications();
     void removeNotifications(int accountId);

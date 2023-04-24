@@ -59,7 +59,7 @@ QHash<int, QByteArray> GithubNotificationsModel::roleNames() const
     roleNames.insert(Repo,   "repo");
     roleNames.insert(Avatar, "avatar");
     roleNames.insert(Link,    "url");
-    roleNames.insert(TimeStamp, "createdTime");
+    roleNames.insert(TimeStamp, "timestamp");
     roleNames.insert(Accounts, "accounts");
     return roleNames;
 }
@@ -121,7 +121,7 @@ void GithubNotificationsModel::notificationsChanged()
         eventMap.insert(GithubNotificationsModel::Unread, notification->unread());
         eventMap.insert(GithubNotificationsModel::Avatar, notification->avatar());
         eventMap.insert(GithubNotificationsModel::Link, notification->url());
-        eventMap.insert(GithubNotificationsModel::TimeStamp, notification->createdTime());
+        eventMap.insert(GithubNotificationsModel::TimeStamp, notification->updatedTime());
 
         QVariantList accountsVariant;
         accountsVariant.append(notification->accountId());
