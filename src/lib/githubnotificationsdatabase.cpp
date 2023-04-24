@@ -249,7 +249,6 @@ void GithubNotificationsDatabase::addGithubNotification(int accountId,
                                                 const QDateTime &updatedTime)
 {
     Q_D(GithubNotificationsDatabase);
-    qDebug() << "adding entry for account" << accountId << ":" << title.left(12) << "…";
     d->insertNotifications[accountId].append(GithubNotification::create(accountId, threadId, type, title, from, reason, unread, repo, avatar, url, updatedTime));
 }
 
@@ -367,7 +366,6 @@ bool GithubNotificationsDatabase::write()
     QSqlQuery query;
 
     if (!removeNotificationsFromAccounts.isEmpty()) {
-        qDebug() << "removing notfications by account…";
         QVariantList accountIds;
 
         Q_FOREACH (const int accountId, removeNotificationsFromAccounts) {
@@ -380,7 +378,6 @@ bool GithubNotificationsDatabase::write()
     }
 
     if (!removeNotifications.isEmpty()) {
-        qDebug() << "removing notfications by id…";
         QVariantList notifIds;
 
         Q_FOREACH (const QString notifId, removeNotifications) {
