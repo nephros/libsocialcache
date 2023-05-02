@@ -453,7 +453,7 @@ bool GithubNotificationsDatabase::createTables(QSqlDatabase database) const
                   "titleStr TEXT,"\
                   "fromStr TEXT,"\
                   "reasonStr TEXT,"\
-                  "unread BOOLEAN CHECK (unread IN (0, 1),"\
+                  "unread BOOLEAN CHECK (unread IN (0, 1)),"\
                   "repoStr TEXT,"\
                   "avatarUrl TEXT,"\
                   "url TEXT,"\
