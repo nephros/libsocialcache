@@ -444,9 +444,9 @@ bool GithubNotificationsDatabase::write()
 
 bool GithubNotificationsDatabase::createTables(QSqlDatabase database) const
 {
-    QSqlQuery query(database);
+        QSqlQuery query(database);
 
-    query.prepare("CREATE TABLE IF NOT EXISTS notifications ("\
+        query.prepare("CREATE TABLE IF NOT EXISTS notifications ("\
                   "threadId INTEGER UNIQUE PRIMARY KEY,"\
                   "accountId INTEGER,"\
                   "typeStr TEXT,"\
