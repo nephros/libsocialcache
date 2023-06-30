@@ -387,7 +387,6 @@ bool GithubNotificationsDatabase::write()
         query = prepare(QStringLiteral("DELETE FROM notifications WHERE threadId = :threadId"));
         query.bindValue(QStringLiteral(":threadId"), notifIds);
         executeBatchSocialCacheQuery(query);
-        executeBatchSocialCacheQuery(query);
     }
 
     if (!insertNotifications.isEmpty()) {
