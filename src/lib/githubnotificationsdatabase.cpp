@@ -196,6 +196,7 @@ public:
         QMap<int, QList<GithubNotification::ConstPtr> > insertNotifications;
         QList<int> removeNotificationsFromAccounts;
         QStringList removeNotifications;
+        bool removeAll;
     } queue;
 };
 
@@ -207,6 +208,7 @@ GithubNotificationsDatabasePrivate::GithubNotificationsDatabasePrivate(GithubNot
             QLatin1String(DB_NAME),
             VERSION)
 {
+    queue.removeAll = false;
 }
 
 GithubNotificationsDatabase::GithubNotificationsDatabase()
@@ -364,15 +366,26 @@ bool GithubNotificationsDatabase::write()
     const QMap<int, QList<GithubNotification::ConstPtr> > insertNotifications = d->queue.insertNotifications;
     const QList<int> removeNotificationsFromAccounts = d->queue.removeNotificationsFromAccounts;
     QStringList removeNotifications = d->queue.removeNotifications;
+    bool removeAll = d->queue.removeAll;
 
     d->queue.insertNotifications.clear();
     d->queue.removeNotificationsFromAccounts.clear();
     d->queue.removeNotifications.clear();
+    d->queue.removeAll = false;
 
     locker.unlock();
 
     bool success = true;
     QSqlQuery query;
+
+    if (removeAll) {
+        QVariantList accountIds;
+        accountIds.append(-1);
+
+        query = prepare(QStringLiteral("DELETE FROM notifications WHERE accountId > :accountId"));
+        query.bindValue(QStringLiteral(":accountId"), accountIds);
+        executeBatchSocialCacheQuery(query);
+    }
 
     if (!removeNotificationsFromAccounts.isEmpty()) {
         QVariantList accountIds;
