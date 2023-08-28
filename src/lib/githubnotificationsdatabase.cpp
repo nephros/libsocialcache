@@ -254,8 +254,17 @@ void GithubNotificationsDatabase::addGithubNotification(int accountId,
 
 void GithubNotificationsDatabase::removeAllNotifications()
 {
-   //FIXME: this is in the qml plugin
-   qWarning() << Q_FUNC_INFO << "Not implemented";
+    Q_D(GithubNotificationsDatabase);
+
+    {
+        QMutexLocker locker(&d->mutex);
+        d->queue.insertNotifications.clear();
+        d->queue.removeNotificationsFromAccounts.clear();
+        d->queue.removeNotifications.clear();
+        d->queue.removeAll = true;
+    }
+
+    executeWrite();
 }
 
 void GithubNotificationsDatabase::removeNotifications(int accountId)
