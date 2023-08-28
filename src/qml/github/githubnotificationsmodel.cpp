@@ -21,6 +21,7 @@
 #include "githubnotificationsmodel.h"
 #include "abstractsocialcachemodel_p.h"
 #include "githubnotificationsdatabase.h"
+#include <QtCore/QDebug>
 
 class GithubNotificationsModelPrivate : public AbstractSocialCacheModelPrivate
 {
