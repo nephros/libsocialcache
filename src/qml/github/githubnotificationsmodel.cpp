@@ -86,9 +86,11 @@ void GithubNotificationsModel::refresh()
 void GithubNotificationsModel::remove(const QString &notificationId)
 {
     Q_D(GithubNotificationsModel);
+    qDebug() << "trying to remove id " << notificationId;
     for (int i=0; i<count(); i++) {
         if (getField(i, GithubNotificationsModel::NotificationId).toString() == notificationId) {
             d->removeRange(i, 1);
+            qDebug() << "removing entry " << notificationId;
             d->database.removeNotification(notificationId);
             d->database.sync();
             break;
@@ -99,6 +101,7 @@ void GithubNotificationsModel::remove(const QString &notificationId)
 void GithubNotificationsModel::clear()
 {
     Q_D(GithubNotificationsModel);
+    qDebug() << "removing all entries";
     d->clearData();
     d->database.removeAllNotifications();
 }
