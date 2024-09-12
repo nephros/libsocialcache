@@ -28,7 +28,7 @@ static const char *FEED_NAME_KEY = "feed_name";
 
 RSSFeedDatabase::RSSFeedDatabase()
     : AbstractSocialPostCacheDatabase(
-          SocialSyncInterface::socialNetwork(SocialSyncInterface::Twitter),
+          SocialSyncInterface::socialNetwork(SocialSyncInterface::RSSFeed),
           QLatin1String(DB_NAME))
 {
 }
