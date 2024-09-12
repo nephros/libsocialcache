@@ -37,7 +37,8 @@ public:
         Diaspora,
         CalDAV,
         OneDrive,
-        Dropbox
+        Dropbox,
+        RSSFeed
     };
 
     enum DataType {
