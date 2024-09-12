@@ -38,6 +38,7 @@ HEADERS += \
     facebook/facebookpostsmodel.h \
     facebook/facebooknotificationsmodel.h \
     twitter/twitterpostsmodel.h \
+    rssfeed/rssfeedpostsmodel.h \
     generic/socialimagedownloader.h \
     generic/socialimagedownloader_p.h \
     onedrive/onedriveimagedownloader_p.h \
@@ -60,6 +61,7 @@ SOURCES += plugin.cpp \
     facebook/facebookpostsmodel.cpp \
     facebook/facebooknotificationsmodel.cpp \
     twitter/twitterpostsmodel.cpp \
+    rssfeed/rssfeedpostsmodel.cpp \
     generic/socialimagedownloader.cpp \
     onedrive/onedriveimagedownloader.cpp \
     onedrive/onedriveimagecachemodel.cpp \
