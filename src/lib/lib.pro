@@ -11,6 +11,7 @@ isEmpty(PREFIX) {
 TARGET = socialcache
 target.path = $$[QT_INSTALL_LIBS]
 
+
 HEADERS = \
     semaphore_p.h \
     socialsyncinterface.h \
@@ -26,6 +27,7 @@ HEADERS = \
     facebookpostsdatabase.h \
     twitterpostsdatabase.h \
     twitternotificationsdatabase.h \
+    rssfeedpostsdatabase.h \
     socialimagesdatabase.h \
     onedriveimagesdatabase.h \
     dropboximagesdatabase.h \
@@ -46,6 +48,7 @@ SOURCES = \
     facebookpostsdatabase.cpp \
     twitterpostsdatabase.cpp \
     twitternotificationsdatabase.cpp \
+    rssfeedpostsdatabase.cpp \
     socialimagesdatabase.cpp \
     onedriveimagesdatabase.cpp \
     dropboximagesdatabase.cpp \
