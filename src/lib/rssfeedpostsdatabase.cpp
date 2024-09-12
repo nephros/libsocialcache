@@ -23,6 +23,8 @@
 #include <QtDebug>
 
 static const char *DB_NAME = "rssfeed.db";
+static const char *FEED_NAME_KEY = "feed_name";
+
 
 RSSFeedDatabase::RSSFeedDatabase()
     : AbstractSocialPostCacheDatabase(
