@@ -125,6 +125,8 @@ public:
 
         qmlRegisterType<TwitterPostsModel>(uri, 1, 0, "TwitterPostsModel");
 
+        qmlRegisterType<RSSFeedPostsModel>(uri, 1, 0, "RSSFeedPostsModel");
+
         qmlRegisterType<SocialImageDownloader>(uri, 1, 0, "SocialImageCache");
 
         qmlRegisterType<OneDriveImageCacheModel>(uri, 1, 0, "OneDriveImageCacheModel");
