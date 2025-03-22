@@ -83,4 +83,4 @@ This package contains unit tests for the libsocialcache library.
 %{_datadir}/translations/socialcache_eng_en.qm
 
 %files tests
-/opt/tests/libsocialcache/
+#/opt/tests/libsocialcache/
