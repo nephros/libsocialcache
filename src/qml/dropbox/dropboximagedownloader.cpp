@@ -82,7 +82,8 @@ void DropboxImageDownloader::invokeSpecificModelCallback(const QString &url, con
 }
 
 QString DropboxImageDownloader::outputFile(const QString &url,
-                                                        const QVariantMap &data) const
+                                           const QVariantMap &data,
+                                           const QString &mimeType) const
 {
     Q_UNUSED(url);
 
@@ -99,11 +100,11 @@ QString DropboxImageDownloader::outputFile(const QString &url,
 
     identifier.append(typeString);
 
-    return makeOutputFile(SocialSyncInterface::Dropbox, SocialSyncInterface::Images, identifier);
+    return makeOutputFile(SocialSyncInterface::Dropbox, SocialSyncInterface::Images, identifier, mimeType);
 }
 
 void DropboxImageDownloader::dbQueueImage(const QString &url, const QVariantMap &data,
-                                                       const QString &file)
+                                          const QString &file)
 {
     Q_D(DropboxImageDownloader);
     Q_UNUSED(url);

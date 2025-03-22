@@ -1,9 +1,9 @@
 Name:       libsocialcache
 Summary:    A library that manages data from social networks
-Version:    0.1.5
+Version:    0.2.1
 Release:    1
 License:    BSD and LGPLv2+
-URL:        https://git.sailfishos.org/mer-core/libsocialcache
+URL:        https://github.com/sailfishos/libsocialcache
 Source0:    %{name}-%{version}.tar.bz2
 BuildRequires:  pkgconfig(Qt5Core)
 BuildRequires:  pkgconfig(Qt5Gui)
@@ -42,34 +42,36 @@ Summary:   QML plugin for libsocialcache
 %description qml-plugin
 This package contains the qml plugin for socialcache
 
+%package tests
+Summary:    Unit tests for libsocialcache
+License:    BSD
+Requires:   %{name} = %{version}-%{release}
+
+%description tests
+This package contains unit tests for the libsocialcache library.
+
 %prep
 %setup -q -n %{name}-%{version}
 
 %build
 %qmake5 "VERSION=%{version}"
-make %{_smp_mflags}
+%make_build
 
 %install
-rm -rf %{buildroot}
 %qmake5_install
 
-%post
-/sbin/ldconfig
+%post -p /sbin/ldconfig
 
-%postun
-/sbin/ldconfig
+%postun -p /sbin/ldconfig
 
 %files
-%defattr(-,root,root,-)
 %{_libdir}/libsocialcache.so.*
 %license COPYING
 
 %files qml-plugin-ts-devel
-%defattr(-,root,root,-)
 %{_datadir}/translations/source/socialcache.ts
 
 %files devel
-%defattr(-,root,root,-)
 %{_includedir}/socialcache/*.h
 %{_libdir}/libsocialcache.so
 %{_libdir}/pkgconfig/socialcache.pc
@@ -80,3 +82,5 @@ rm -rf %{buildroot}
 %{_libdir}/qt5/qml/org/nemomobile/socialcache/libsocialcacheqml.so
 %{_datadir}/translations/socialcache_eng_en.qm
 
+%files tests
+/opt/tests/libsocialcache/
