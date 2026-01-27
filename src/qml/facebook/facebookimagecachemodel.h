@@ -27,10 +27,8 @@ class FacebookImageCacheModelPrivate;
 class FacebookImageCacheModel: public AbstractSocialCacheModel
 {
     Q_OBJECT
-    Q_PROPERTY(FacebookImageCacheModel::ModelDataType type READ type WRITE setType
-               NOTIFY typeChanged)
-    Q_PROPERTY(FacebookImageDownloader * downloader READ downloader WRITE setDownloader
-               NOTIFY downloaderChanged)
+    Q_PROPERTY(FacebookImageCacheModel::ModelDataType type READ type WRITE setType NOTIFY typeChanged)
+    Q_PROPERTY(FacebookImageDownloader * downloader READ downloader WRITE setDownloader NOTIFY downloaderChanged)
 
     Q_ENUMS(FacebookGalleryRole)
     Q_ENUMS(ModelDataType)

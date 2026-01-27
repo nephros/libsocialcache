@@ -27,6 +27,7 @@
 class VKImageCacheModel;
 class VKImageDownloaderWorkerObject;
 class VKImageDownloaderPrivate;
+
 class VKImageDownloader : public AbstractImageDownloader
 {
     Q_OBJECT

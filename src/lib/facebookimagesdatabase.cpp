@@ -32,8 +32,9 @@ static const int VERSION = 3;
 
 struct FacebookUserPrivate
 {
-    explicit FacebookUserPrivate(const QString &fbUserId, const QDateTime &updatedTime,
-                                 const QString &userName, int count = -1);
+    FacebookUserPrivate(const QString &fbUserId, const QDateTime &updatedTime,
+                        const QString &userName, int count = -1);
+
     QString fbUserId;
     QDateTime updatedTime;
     QString userName;
@@ -89,9 +90,10 @@ int FacebookUser::count() const
 
 struct FacebookAlbumPrivate
 {
-    explicit FacebookAlbumPrivate(const QString &fbAlbumId, const QString &fbUserId,
-                                  const QDateTime &createdTime, const QDateTime &updatedTime,
-                                  const QString &albumName, int imageCount);
+    FacebookAlbumPrivate(const QString &fbAlbumId, const QString &fbUserId,
+                         const QDateTime &createdTime, const QDateTime &updatedTime,
+                         const QString &albumName, int imageCount);
+
     QString fbAlbumId;
     QString fbUserId;
     QDateTime createdTime;
@@ -167,12 +169,13 @@ int FacebookAlbum::imageCount() const
 
 struct FacebookImagePrivate
 {
-    explicit FacebookImagePrivate(const QString &fbImageId, const QString &fbAlbumId,
-                                  const QString &fbUserId, const QDateTime &createdTime,
-                                  const QDateTime &updatedTime, const QString &imageName,
-                                  int width, int height, const QString &thumbnailUrl,
-                                  const QString &imageUrl, const QString &thumbnailFile,
-                                  const QString &imageFile, int account = -1);
+    FacebookImagePrivate(const QString &fbImageId, const QString &fbAlbumId,
+                         const QString &fbUserId, const QDateTime &createdTime,
+                         const QDateTime &updatedTime, const QString &imageName,
+                         int width, int height, const QString &thumbnailUrl,
+                         const QString &imageUrl, const QString &thumbnailFile,
+                         const QString &imageFile, int account = -1);
+
     QString fbImageId;
     QString fbAlbumId;
     QString fbUserId;

@@ -32,12 +32,13 @@ static const int VERSION = 4;
 
 struct SocialImagePrivate
 {
-    explicit SocialImagePrivate(int accountId,
-                                const QString &imageUrl,
-                                const QString &imageFile,
-                                const QDateTime &createdTime,
-                                const QDateTime &expires,
-                                const QString &imageId);
+    SocialImagePrivate(int accountId,
+                       const QString &imageUrl,
+                       const QString &imageFile,
+                       const QDateTime &createdTime,
+                       const QDateTime &expires,
+                       const QString &imageId);
+
     int accountId;
     QString imageUrl;
     QString imageFile;

@@ -34,18 +34,21 @@ class KeyProviderHelper : public QObject
 
 public:
     explicit KeyProviderHelper(QObject *parent = 0);
+
     QString facebookClientId();
     QString twitterConsumerKey();
     QString twitterConsumerSecret();
     QString oneDriveClientId();
     QString dropboxClientId();
     QString vkClientId();
+
 private:
     void loadFacebook();
     void loadTwitter();
     void loadOneDrive();
     void loadDropbox();
     void loadVk();
+
     bool m_triedLoadingFacebook;
     QString m_facebookClientId;
     bool m_triedLoadingTwitter;

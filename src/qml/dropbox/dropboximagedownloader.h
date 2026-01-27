@@ -27,6 +27,7 @@
 class DropboxImageCacheModel;
 class DropboxImageDownloaderWorkerObject;
 class DropboxImageDownloaderPrivate;
+
 class DropboxImageDownloader : public AbstractImageDownloader
 {
     Q_OBJECT
@@ -36,7 +37,7 @@ public:
         FullImage
     };
 
-    explicit DropboxImageDownloader(QObject *parent = 0);
+    explicit DropboxImageDownloader(QObject *parent = nullptr);
     virtual ~DropboxImageDownloader();
 
     // tracking object lifetime of models connected to this downloader.

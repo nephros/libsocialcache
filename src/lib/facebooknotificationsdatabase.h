@@ -27,6 +27,7 @@
 #include <QDateTime>
 
 class FacebookNotificationPrivate;
+
 class FacebookNotification
 {
 public:
@@ -53,17 +54,20 @@ public:
 
 protected:
     QScopedPointer<FacebookNotificationPrivate> d_ptr;
+
 private:
     Q_DECLARE_PRIVATE(FacebookNotification)
-    explicit FacebookNotification(const QString &facebookId, const QString &from, const QString &to,
-                                  const QDateTime &createdTime, const QDateTime &updatedTime,
-                                  const QString &title, const QString &link,
-                                  const QString &application, const QString &object,
-                                  bool unread, int accountId, const QString &clientId);
+
+    FacebookNotification(const QString &facebookId, const QString &from, const QString &to,
+                         const QDateTime &createdTime, const QDateTime &updatedTime,
+                         const QString &title, const QString &link,
+                         const QString &application, const QString &object,
+                         bool unread, int accountId, const QString &clientId);
 };
 
 
 class FacebookNotificationsDatabasePrivate;
+
 class FacebookNotificationsDatabase: public AbstractSocialCacheDatabase
 {
     Q_OBJECT

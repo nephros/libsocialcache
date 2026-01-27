@@ -137,7 +137,7 @@ public:
         qmlRegisterType<VKImageCacheModel>(uri, 1, 0, "VKImageCacheModel");
 
         qmlRegisterSingletonType<VKImageDownloader>(uri, 1, 0, "VKImageDownloader",
-                                                          &vkImageDownloader_provider);
+                                                    &vkImageDownloader_provider);
 
 #ifndef NO_DEPS
         qmlRegisterUncreatableType<SocialSyncInterface>(uri, 1, 0, "SocialSync",

@@ -56,6 +56,7 @@ public:
 
 public Q_SLOTS:
     void sync();
+
 Q_SIGNALS:
     void socialNetworkChanged();
     void dataTypeChanged();

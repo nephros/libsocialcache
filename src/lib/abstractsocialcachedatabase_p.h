@@ -48,7 +48,7 @@ public:
 
     struct ThreadData
     {
-        ThreadData() : mutex(0) {}
+        ThreadData() : mutex(nullptr) {}
         ~ThreadData() { database.close(); delete mutex; }
 
         QSqlDatabase database;
@@ -57,12 +57,11 @@ public:
         ProcessMutex *mutex; // Process (and thread) mutex to prevent concurrent write
     };
 
-    explicit AbstractSocialCacheDatabasePrivate(
-            AbstractSocialCacheDatabase *q,
-            const QString &serviceName,
-            const QString &dataType,
-            const QString &databaseFile,
-            int version);
+     AbstractSocialCacheDatabasePrivate(AbstractSocialCacheDatabase *q,
+                                       const QString &serviceName,
+                                       const QString &dataType,
+                                       const QString &databaseFile,
+                                       int version);
     virtual ~AbstractSocialCacheDatabasePrivate();
 
     bool initializeThreadData(ThreadData *threadData) const;

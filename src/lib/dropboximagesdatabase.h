@@ -26,6 +26,7 @@
 #include <QtCore/QSharedPointer>
 
 class DropboxUserPrivate;
+
 class DropboxUser
 {
 public:
@@ -35,7 +36,7 @@ public:
     virtual ~DropboxUser();
 
     static DropboxUser::Ptr create(const QString &userId, const QDateTime &updatedTime,
-                                    const QString &userName, int count = -1);
+                                   const QString &userName, int count = -1);
 
     QString userId() const;
     QDateTime updatedTime() const;
@@ -47,11 +48,12 @@ protected:
 
 private:
     Q_DECLARE_PRIVATE(DropboxUser)
-    explicit DropboxUser(const QString &userId, const QDateTime &updatedTime,
-                          const QString &userName, int count = -1);
+    DropboxUser(const QString &userId, const QDateTime &updatedTime,
+                const QString &userName, int count = -1);
 };
 
 class DropboxAlbumPrivate;
+
 class DropboxAlbum
 {
 public:
@@ -61,8 +63,8 @@ public:
     virtual ~DropboxAlbum();
 
     static DropboxAlbum::Ptr create(const QString &albumId, const QString &userId,
-                                     const QDateTime &createdTime, const QDateTime &updatedTime,
-                                     const QString &albumName, int imageCount, const QString &hash);
+                                    const QDateTime &createdTime, const QDateTime &updatedTime,
+                                    const QString &albumName, int imageCount, const QString &hash);
 
     QString albumId() const;
     QString userId() const;
@@ -78,11 +80,12 @@ protected:
 private:
     Q_DECLARE_PRIVATE(DropboxAlbum)
     explicit DropboxAlbum(const QString &albumId, const QString &userId,
-                           const QDateTime &createdTime, const QDateTime &updatedTime,
-                           const QString &albumName, int imageCount, const QString &hash);
+                          const QDateTime &createdTime, const QDateTime &updatedTime,
+                          const QString &albumName, int imageCount, const QString &hash);
 };
 
 class DropboxImagePrivate;
+
 class DropboxImage
 {
 public:
@@ -92,12 +95,12 @@ public:
     virtual ~DropboxImage();
 
     static DropboxImage::Ptr create(const QString & imageId, const QString & albumId,
-                                     const QString & userId, const QDateTime & createdTime,
-                                     const QDateTime &updatedTime, const QString &imageName,
-                                     int width, int height, const QString & thumbnailUrl,
-                                     const QString & imageUrl, const QString & thumbnailFile,
-                                     const QString & imageFile, int account = -1,
-                                     const QString & accessToken = QString());
+                                    const QString & userId, const QDateTime & createdTime,
+                                    const QDateTime &updatedTime, const QString &imageName,
+                                    int width, int height, const QString & thumbnailUrl,
+                                    const QString & imageUrl, const QString & thumbnailFile,
+                                    const QString & imageFile, int account = -1,
+                                    const QString & accessToken = QString());
 
     QString imageId() const;
     QString albumId() const;
@@ -119,13 +122,14 @@ protected:
 
 private:
     Q_DECLARE_PRIVATE(DropboxImage)
-    explicit DropboxImage(const QString & imageId, const QString & albumId,
-                           const QString & userId, const QDateTime & createdTime,
-                           const QDateTime & updatedTime, const QString & imageName,
-                           int width, int height, const QString & thumbnailUrl,
-                           const QString & imageUrl, const QString & thumbnailFile,
-                           const QString & imageFile, int account = -1,
-                           const QString & accessToken = QString());
+
+    DropboxImage(const QString & imageId, const QString & albumId,
+                 const QString & userId, const QDateTime & createdTime,
+                 const QDateTime & updatedTime, const QString & imageName,
+                 int width, int height, const QString & thumbnailUrl,
+                 const QString & imageUrl, const QString & thumbnailFile,
+                 const QString & imageFile, int account = -1,
+                 const QString & accessToken = QString());
 };
 
 bool operator==(const DropboxUser::ConstPtr &user1, const DropboxUser::ConstPtr &user2);
@@ -133,11 +137,12 @@ bool operator==(const DropboxAlbum::ConstPtr &album1, const DropboxAlbum::ConstP
 bool operator==(const DropboxImage::ConstPtr &image1, const DropboxImage::ConstPtr &image2);
 
 class DropboxImagesDatabasePrivate;
+
 class DropboxImagesDatabase: public AbstractSocialCacheDatabase
 {
     Q_OBJECT
 public:
-    explicit DropboxImagesDatabase();
+    DropboxImagesDatabase();
     ~DropboxImagesDatabase();
 
     // Account manipulation
@@ -147,8 +152,7 @@ public:
 
     // User cache manipulation
     DropboxUser::ConstPtr user(const QString &userId) const;
-    void addUser(const QString &userId, const QDateTime &updatedTime,
-                 const QString &userName);
+    void addUser(const QString &userId, const QDateTime &updatedTime, const QString &userName);
     void removeUser(const QString &userId);
 
     // Album cache manipulation
@@ -194,7 +198,6 @@ protected:
     bool write();
     bool createTables(QSqlDatabase database) const;
     bool dropTables(QSqlDatabase database) const;
-
 
 private:
     Q_DECLARE_PRIVATE(DropboxImagesDatabase)

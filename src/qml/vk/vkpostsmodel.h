@@ -23,6 +23,7 @@
 #include "abstractsocialcachemodel.h"
 
 class VKPostsModelPrivate;
+
 class VKPostsModel: public AbstractSocialCacheModel
 {
     Q_OBJECT
@@ -48,6 +49,7 @@ public:
         RepostImages,
         Link
     };
+
     explicit VKPostsModel(QObject *parent = 0);
     QHash<int, QByteArray> roleNames() const;
 

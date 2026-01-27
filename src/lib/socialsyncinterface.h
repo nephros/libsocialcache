@@ -27,6 +27,7 @@ class SocialSyncInterface : public QObject
     Q_OBJECT
     Q_ENUMS(SocialNetwork)
     Q_ENUMS(DataType)
+
 public:
     enum SocialNetwork {
         InvalidSocialNetwork,
@@ -51,8 +52,10 @@ public:
         Messages,
         Emails
     };
+
     Q_INVOKABLE static QString socialNetwork(SocialNetwork sn);
     Q_INVOKABLE static QString dataType(DataType t);
+
     static QString profileName(SocialNetwork sn, DataType t);
 };
 

@@ -26,7 +26,7 @@ class VKPostsDatabase: public AbstractSocialPostCacheDatabase
 {
     Q_OBJECT
 public:
-    explicit VKPostsDatabase();
+    VKPostsDatabase();
     ~VKPostsDatabase();
 
     class Comments

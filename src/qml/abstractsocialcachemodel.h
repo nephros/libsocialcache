@@ -26,11 +26,11 @@ typedef QMap<int, QVariant> SocialCacheModelRow;
 typedef QList<SocialCacheModelRow> SocialCacheModelData;
 
 class AbstractSocialCacheModelPrivate;
+
 class AbstractSocialCacheModel : public QAbstractListModel
 {
     Q_OBJECT
-    Q_PROPERTY(QString nodeIdentifier READ nodeIdentifier WRITE setNodeIdentifier
-               NOTIFY nodeIdentifierChanged)
+    Q_PROPERTY(QString nodeIdentifier READ nodeIdentifier WRITE setNodeIdentifier NOTIFY nodeIdentifierChanged)
     Q_PROPERTY(int count READ count NOTIFY countChanged)
 
 public:
@@ -55,7 +55,6 @@ Q_SIGNALS:
     void modelUpdated();
 
 protected:
-
     // Methods used to update the model in the C++ side
     void updateData(const SocialCacheModelData &data);
     void updateRow(int row, const SocialCacheModelRow &data);

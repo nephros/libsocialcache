@@ -28,7 +28,7 @@ class SocialNetworkSyncDatabase: public AbstractSocialCacheDatabase
 {
     Q_OBJECT
 public:
-    explicit SocialNetworkSyncDatabase();
+    SocialNetworkSyncDatabase();
     ~SocialNetworkSyncDatabase();
 
     QList<int> syncedAccounts(const QString &serviceName, const QString &dataType) const;

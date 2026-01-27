@@ -27,6 +27,7 @@
 class FacebookImageCacheModel;
 class FacebookImageDownloaderWorkerObject;
 class FacebookImageDownloaderPrivate;
+
 class FacebookImageDownloader : public AbstractImageDownloader
 {
     Q_OBJECT

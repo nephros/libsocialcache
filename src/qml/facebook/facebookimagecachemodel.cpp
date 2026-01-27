@@ -305,7 +305,7 @@ void FacebookImageCacheModel::queryFinished()
             QMap<int, QVariant> albumMap;
             albumMap.insert(FacebookImageCacheModel::FacebookId, QString());
             // albumMap.insert(FacebookImageCacheModel::Icon, QString());
-            //:  Label for the "show all photos from all albums by this user" option
+            //: Label for the "show all photos from all albums by this user" option
             //% "All"
             albumMap.insert(FacebookImageCacheModel::Title, qtTrId("nemo_socialcache_facebook_images_model-all-albums"));
             albumMap.insert(FacebookImageCacheModel::Count, count);

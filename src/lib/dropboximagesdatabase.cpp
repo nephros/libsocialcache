@@ -32,8 +32,8 @@ static const int VERSION = 1;
 
 struct DropboxUserPrivate
 {
-    explicit DropboxUserPrivate(const QString &userId, const QDateTime &updatedTime,
-                                 const QString &userName, int count = -1);
+    DropboxUserPrivate(const QString &userId, const QDateTime &updatedTime,
+                       const QString &userName, int count = -1);
     QString userId;
     QDateTime updatedTime;
     QString userName;
@@ -174,13 +174,14 @@ QString DropboxAlbum::hash() const
 
 struct DropboxImagePrivate
 {
-    explicit DropboxImagePrivate(const QString &imageId, const QString &albumId,
-                                  const QString &userId, const QDateTime &createdTime,
-                                  const QDateTime &updatedTime, const QString &imageName,
-                                  int width, int height, const QString &thumbnailUrl,
-                                  const QString &imageUrl, const QString &thumbnailFile,
-                                  const QString &imageFile, int account = -1,
-                                  const QString &accessToken = QString());
+    DropboxImagePrivate(const QString &imageId, const QString &albumId,
+                        const QString &userId, const QDateTime &createdTime,
+                        const QDateTime &updatedTime, const QString &imageName,
+                        int width, int height, const QString &thumbnailUrl,
+                        const QString &imageUrl, const QString &thumbnailFile,
+                        const QString &imageFile, int account = -1,
+                        const QString &accessToken = QString());
+
     QString imageId;
     QString albumId;
     QString userId;
@@ -650,9 +651,8 @@ QMap<int,QString> DropboxImagesDatabase::accounts(bool *ok) const
     }
 
     QMap<int,QString> result;
-    QSqlQuery query = prepare(QStringLiteral(
-                "SELECT accountId, userId "
-                "FROM accounts "));
+    QSqlQuery query = prepare(QStringLiteral("SELECT accountId, userId "
+                                             "FROM accounts "));
     if (!query.exec()) {
         qWarning() << Q_FUNC_INFO << "Unable to fetch account mappings" << query.lastError().text();
         return result;
@@ -1010,6 +1010,7 @@ bool DropboxImagesDatabase::read()
 void DropboxImagesDatabase::readFinished()
 {
     Q_D(DropboxImagesDatabase);
+
     {
         QMutexLocker locker(&d->mutex);
 
