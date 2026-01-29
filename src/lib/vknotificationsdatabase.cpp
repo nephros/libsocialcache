@@ -29,14 +29,14 @@ static const int VERSION = 1;
 
 struct VKNotificationPrivate
 {
-    explicit VKNotificationPrivate(const QString &identifier,
-                                   int accountId,
-                                   const QString &type,
-                                   const QString &fromId,
-                                   const QString &fromName,
-                                   const QString &fromIcon,
-                                   const QString &toId,
-                                   const QDateTime &createdTime);
+    VKNotificationPrivate(const QString &identifier,
+                          int accountId,
+                          const QString &type,
+                          const QString &fromId,
+                          const QString &fromName,
+                          const QString &fromIcon,
+                          const QString &toId,
+                          const QDateTime &createdTime);
 
     QString m_id;
     int m_accountId;

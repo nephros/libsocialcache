@@ -31,6 +31,7 @@
 #include "vkimagesdatabase.h"
 
 class VKImageCacheModel;
+
 class VKImageDownloaderPrivate: public AbstractImageDownloaderPrivate
 {
 public:

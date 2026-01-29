@@ -45,6 +45,7 @@ class SocialNetworkSyncDatabasePrivate: public AbstractSocialCacheDatabasePrivat
 public:
     explicit SocialNetworkSyncDatabasePrivate(SocialNetworkSyncDatabase *q);
     virtual ~SocialNetworkSyncDatabasePrivate();
+
     QList<SocialNetworkSyncData *> queuedData;
 };
 

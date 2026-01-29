@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2013 Lucien Xu <sfietkonstantin@free.fr>
- * Copyright (C) 2013 - 2021 Jolla Pty Ltd.
+ * Copyright (C) 2013 - 2021 Jolla Ltd.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -76,7 +76,7 @@ void AbstractImageDownloaderPrivate::manageStack()
             timer->setInterval(60000);
             timer->setSingleShot(true);
             QObject::connect(timer, &QTimer::timeout,
-                    q, &AbstractImageDownloader::timedOut);
+                             q, &AbstractImageDownloader::timedOut);
             timer->start();
             replyTimeouts.insert(timer, reply);
             reply->setProperty("timeoutTimer", QVariant::fromValue<QTimer*>(timer));
@@ -96,6 +96,7 @@ void AbstractImageDownloaderPrivate::manageStack()
 bool AbstractImageDownloaderPrivate::writeImageData(ImageInfo *info, QNetworkReply *reply, QString *outFileName)
 {
     Q_Q(AbstractImageDownloader);
+
     qint64 bytesAvailable = reply->bytesAvailable();
     if (bytesAvailable == 0) {
         qWarning() << Q_FUNC_INFO << "No image data available";
@@ -264,6 +265,7 @@ AbstractImageDownloader::~AbstractImageDownloader()
 void AbstractImageDownloader::queue(const QString &url, const QVariantMap &metadata)
 {
     Q_D(AbstractImageDownloader);
+
     if (!dbInit()) {
         qWarning() << Q_FUNC_INFO << "Cannot perform operation, database is not initialized";
         emit imageDownloaded(url, QString(), metadata); // empty file signifies error.
@@ -279,7 +281,7 @@ void AbstractImageDownloader::queue(const QString &url, const QVariantMap &metad
         }
     }
 
-    ImageInfo *info = 0;
+    ImageInfo *info = nullptr;
     for (int i = 0; i < d->stack.count(); ++i) {
         if (d->stack.at(i)->url == url) {
             qWarning() << Q_FUNC_INFO << "duplicate queued request, appending metadata.";
@@ -300,6 +302,7 @@ void AbstractImageDownloader::queue(const QString &url, const QVariantMap &metad
 QNetworkReply *AbstractImageDownloader::createReply(const QString &url, const QVariantMap &metadata)
 {
     Q_D(AbstractImageDownloader);
+
     QNetworkRequest request (url);
 
     for (QVariantMap::const_iterator iter = metadata.begin(); iter != metadata.end(); ++iter) {

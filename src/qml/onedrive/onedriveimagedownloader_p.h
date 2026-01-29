@@ -31,6 +31,7 @@
 #include "onedriveimagesdatabase.h"
 
 class OneDriveImageCacheModel;
+
 class OneDriveImageDownloaderPrivate: public AbstractImageDownloaderPrivate
 {
 public:

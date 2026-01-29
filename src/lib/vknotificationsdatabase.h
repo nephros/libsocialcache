@@ -27,6 +27,7 @@
 #include <QDateTime>
 
 class VKNotificationPrivate;
+
 class VKNotification
 {
 public:
@@ -55,20 +56,23 @@ public:
 
 protected:
     QScopedPointer<VKNotificationPrivate> d_ptr;
+
 private:
     Q_DECLARE_PRIVATE(VKNotification)
-    explicit VKNotification(const QString &identifier,
-                            int accountId,
-                            const QString &type,
-                            const QString &fromId,
-                            const QString &fromName,
-                            const QString &fromIcon,
-                            const QString &toId,
-                            const QDateTime &createdTime);
+
+    VKNotification(const QString &identifier,
+                   int accountId,
+                   const QString &type,
+                   const QString &fromId,
+                   const QString &fromName,
+                   const QString &fromIcon,
+                   const QString &toId,
+                   const QDateTime &createdTime);
 };
 
 
 class VKNotificationsDatabasePrivate;
+
 class VKNotificationsDatabase: public AbstractSocialCacheDatabase
 {
     Q_OBJECT

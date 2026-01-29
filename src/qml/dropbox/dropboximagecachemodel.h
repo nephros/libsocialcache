@@ -27,10 +27,8 @@ class DropboxImageCacheModelPrivate;
 class DropboxImageCacheModel: public AbstractSocialCacheModel
 {
     Q_OBJECT
-    Q_PROPERTY(DropboxImageCacheModel::ModelDataType type READ type WRITE setType
-               NOTIFY typeChanged)
-    Q_PROPERTY(DropboxImageDownloader * downloader READ downloader WRITE setDownloader
-               NOTIFY downloaderChanged)
+    Q_PROPERTY(DropboxImageCacheModel::ModelDataType type READ type WRITE setType NOTIFY typeChanged)
+    Q_PROPERTY(DropboxImageDownloader * downloader READ downloader WRITE setDownloader NOTIFY downloaderChanged)
 
     Q_ENUMS(DropboxGalleryRole)
     Q_ENUMS(ModelDataType)

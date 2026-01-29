@@ -354,7 +354,7 @@ void VKImageCacheModel::queryFinished()
             }
 
             albumMap.insert(VKImageCacheModel::AlbumId, QString());
-            //:  Label for the "show all photos from all albums by this user" option
+            //: Label for the "show all photos from all albums by this user" option
             //% "All"
             albumMap.insert(VKImageCacheModel::Text, qtTrId("nemo_socialcache_VK_images_model-all-albums"));
             albumMap.insert(VKImageCacheModel::Count, count);

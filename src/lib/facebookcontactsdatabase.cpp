@@ -36,9 +36,10 @@ static const int VERSION = 3;
 
 struct FacebookContactPrivate
 {
-    explicit FacebookContactPrivate(const QString &fbFriendId, int accountId,
-                                    const QString &pictureUrl, const QString &coverUrl,
-                                    const QString &pictureFile, const QString &coverFile);
+    FacebookContactPrivate(const QString &fbFriendId, int accountId,
+                           const QString &pictureUrl, const QString &coverUrl,
+                           const QString &pictureFile, const QString &coverFile);
+
     QString fbFriendId;
     int accountId;
     QString pictureUrl;

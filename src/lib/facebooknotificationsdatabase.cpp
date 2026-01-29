@@ -29,11 +29,11 @@ static const int VERSION = 1;
 
 struct FacebookNotificationPrivate
 {
-    explicit FacebookNotificationPrivate(const QString &facebookId, const QString &from, const QString &to,
-                                         const QDateTime &createdTime, const QDateTime &updatedTime,
-                                         const QString &title, const QString &link,
-                                         const QString &application, const QString &object,
-                                         bool unread, int accountId, const QString &clientId);
+    FacebookNotificationPrivate(const QString &facebookId, const QString &from, const QString &to,
+                                const QDateTime &createdTime, const QDateTime &updatedTime,
+                                const QString &title, const QString &link,
+                                const QString &application, const QString &object,
+                                bool unread, int accountId, const QString &clientId);
 
     QString m_facebookId;
     QString m_from;

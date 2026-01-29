@@ -29,23 +29,22 @@ class QSqlQuery;
 QT_END_NAMESPACE
 
 class AbstractSocialCacheDatabasePrivate;
+
 class AbstractSocialCacheDatabase : public QObject
 {
     Q_OBJECT
 public:
-    enum Status
-    {
+    enum Status {
         Null,
         Executing,
         Finished,
         Error
     };
 
-    explicit AbstractSocialCacheDatabase(
-            const QString &serviceName,
-            const QString &dataType,
-            const QString &databaseFile,
-            int version);
+    AbstractSocialCacheDatabase(const QString &serviceName,
+                                const QString &dataType,
+                                const QString &databaseFile,
+                                int version);
     virtual ~AbstractSocialCacheDatabase();
 
     bool isValid() const;
@@ -75,7 +74,6 @@ protected:
 
     virtual void readFinished();
     virtual void writeFinished();
-
 
     QSqlQuery prepare(const QString &query) const;
 

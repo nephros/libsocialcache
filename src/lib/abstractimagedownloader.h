@@ -31,7 +31,7 @@ class AbstractImageDownloader : public QObject
 {
     Q_OBJECT
 public:
-    AbstractImageDownloader(QObject *parent = 0);
+    AbstractImageDownloader(QObject *parent = nullptr);
     virtual ~AbstractImageDownloader();
 
 public Q_SLOTS:

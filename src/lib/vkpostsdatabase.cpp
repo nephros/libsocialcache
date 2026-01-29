@@ -83,7 +83,9 @@ VKPostsDatabase::Comments& VKPostsDatabase::Comments::operator=(const VKPostsDat
     return *this;
 }
 
-VKPostsDatabase::Likes::Likes() : count(0), userLikes(false), userCanLike(false), userCanPublish(false) {}
+VKPostsDatabase::Likes::Likes()
+    : count(0), userLikes(false), userCanLike(false), userCanPublish(false)
+{}
 VKPostsDatabase::Likes::~Likes() {}
 
 VKPostsDatabase::Likes::Likes(const VKPostsDatabase::Likes &other)

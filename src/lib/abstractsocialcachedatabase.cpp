@@ -59,14 +59,14 @@ public:
         if (threadData) {
             threadData->mutex->unlock();
             delete threadData->mutex;
-            threadData->mutex = 0;
+            threadData->mutex = nullptr;
         }
     }
 
     void finalize()
     {
         threadData->mutex->unlock();
-        threadData = 0;
+        threadData = nullptr;
     }
 
 private:
@@ -493,4 +493,3 @@ QSqlQuery AbstractSocialCacheDatabase::prepare(const QString &query) const
         return preparedQuery;
     }
 }
-

@@ -24,6 +24,7 @@
 #include <QtCore/QSharedPointer>
 
 class FacebookContactPrivate;
+
 class FacebookContact
 {
 public:
@@ -39,21 +40,25 @@ public:
     QString coverUrl() const;
     QString pictureFile() const;
     QString coverFile() const;
+
 protected:
     QScopedPointer<FacebookContactPrivate> d_ptr;
+
 private:
     Q_DECLARE_PRIVATE(FacebookContact)
-    explicit FacebookContact(const QString &fbFriendId, int accountId,
-                             const QString &pictureUrl, const QString &coverUrl,
-                             const QString &pictureFile, const QString &coverFile);
+
+    FacebookContact(const QString &fbFriendId, int accountId,
+                    const QString &pictureUrl, const QString &coverUrl,
+                    const QString &pictureFile, const QString &coverFile);
 };
 
 class FacebookContactsDatabasePrivate;
+
 class FacebookContactsDatabase: public AbstractSocialCacheDatabase
 {
     Q_OBJECT
 public:
-    explicit FacebookContactsDatabase();
+    FacebookContactsDatabase();
     ~FacebookContactsDatabase();
 
     bool removeContacts(int accountId);

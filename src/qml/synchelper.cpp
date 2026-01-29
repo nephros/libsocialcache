@@ -26,9 +26,13 @@
     #include <buteosyncfw5/ProfileManager.h>
 #endif
 
-SyncHelper::SyncHelper(QObject *parent) :
-    QObject(parent), QQmlParserStatus(), m_socialNetwork(SocialSyncInterface::InvalidSocialNetwork)
-    , m_dataType(SocialSyncInterface::InvalidDataType), m_complete(false), m_loading(false)
+SyncHelper::SyncHelper(QObject *parent)
+    : QObject(parent)
+    , QQmlParserStatus()
+    , m_socialNetwork(SocialSyncInterface::InvalidSocialNetwork)
+    , m_dataType(SocialSyncInterface::InvalidDataType)
+    , m_complete(false)
+    , m_loading(false)
 {
     m_interface = new Buteo::SyncClientInterface();
     connect(m_interface, &Buteo::SyncClientInterface::syncStatus,

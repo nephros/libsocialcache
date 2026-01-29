@@ -26,6 +26,7 @@
 #include <QtCore/QSharedPointer>
 
 class FacebookUserPrivate;
+
 class FacebookUser
 {
 public:
@@ -47,11 +48,12 @@ protected:
 
 private:
     Q_DECLARE_PRIVATE(FacebookUser)
-    explicit FacebookUser(const QString &fbUserId, const QDateTime &updatedTime,
-                          const QString &userName, int count = -1);
+    FacebookUser(const QString &fbUserId, const QDateTime &updatedTime,
+                 const QString &userName, int count = -1);
 };
 
 class FacebookAlbumPrivate;
+
 class FacebookAlbum
 {
 public:
@@ -82,6 +84,7 @@ private:
 };
 
 class FacebookImagePrivate;
+
 class FacebookImage
 {
 public:
@@ -116,12 +119,12 @@ protected:
 
 private:
     Q_DECLARE_PRIVATE(FacebookImage)
-    explicit FacebookImage(const QString & fbImageId, const QString & fbAlbumId,
-                           const QString & fbUserId, const QDateTime & createdTime,
-                           const QDateTime & updatedTime, const QString & imageName,
-                           int width, int height, const QString & thumbnailUrl,
-                           const QString & imageUrl, const QString & thumbnailFile,
-                           const QString & imageFile, int account = -1);
+    FacebookImage(const QString & fbImageId, const QString & fbAlbumId,
+                  const QString & fbUserId, const QDateTime & createdTime,
+                  const QDateTime & updatedTime, const QString & imageName,
+                  int width, int height, const QString & thumbnailUrl,
+                  const QString & imageUrl, const QString & thumbnailFile,
+                  const QString & imageFile, int account = -1);
 };
 
 bool operator==(const FacebookUser::ConstPtr &user1, const FacebookUser::ConstPtr &user2);
@@ -132,8 +135,9 @@ class FacebookImagesDatabasePrivate;
 class FacebookImagesDatabase: public AbstractSocialCacheDatabase
 {
     Q_OBJECT
+
 public:
-    explicit FacebookImagesDatabase();
+    FacebookImagesDatabase();
     ~FacebookImagesDatabase();
 
     // Account manipulation
@@ -190,7 +194,6 @@ protected:
     bool write();
     bool createTables(QSqlDatabase database) const;
     bool dropTables(QSqlDatabase database) const;
-
 
 private:
     Q_DECLARE_PRIVATE(FacebookImagesDatabase)

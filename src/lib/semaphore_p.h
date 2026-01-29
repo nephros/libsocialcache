@@ -66,5 +66,4 @@ public:
     bool unlock();
 };
 
-
 #endif // SEMAPHORE_P_H

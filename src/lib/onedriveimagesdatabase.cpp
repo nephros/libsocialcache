@@ -32,8 +32,9 @@ static const int VERSION = 3;
 
 struct OneDriveUserPrivate
 {
-    explicit OneDriveUserPrivate(const QString &userId, const QDateTime &updatedTime,
-                                 const QString &userName, int accountId, int count = -1);
+    OneDriveUserPrivate(const QString &userId, const QDateTime &updatedTime,
+                        const QString &userName, int accountId, int count = -1);
+
     QString userId;
     QDateTime updatedTime;
     QString userName;
@@ -96,9 +97,10 @@ int OneDriveUser::count() const
 
 struct OneDriveAlbumPrivate
 {
-    explicit OneDriveAlbumPrivate(const QString &albumId, const QString &userId,
-                                  const QDateTime &createdTime, const QDateTime &updatedTime,
-                                  const QString &albumName, int imageCount);
+    OneDriveAlbumPrivate(const QString &albumId, const QString &userId,
+                         const QDateTime &createdTime, const QDateTime &updatedTime,
+                         const QString &albumName, int imageCount);
+
     QString albumId;
     QString userId;
     QDateTime createdTime;
@@ -113,14 +115,12 @@ OneDriveAlbumPrivate::OneDriveAlbumPrivate(const QString &albumId, const QString
     : albumId(albumId), userId(userId), createdTime(createdTime)
     , updatedTime(updatedTime), albumName(albumName), imageCount(imageCount)
 {
-
 }
 
 OneDriveAlbum::OneDriveAlbum(const QString &albumId, const QString &userId,
                              const QDateTime &createdTime, const QDateTime &updatedTime,
                              const QString &albumName, int imageCount)
-    : d_ptr(new OneDriveAlbumPrivate(albumId, userId, createdTime, updatedTime,
-                                     albumName, imageCount))
+    : d_ptr(new OneDriveAlbumPrivate(albumId, userId, createdTime, updatedTime, albumName, imageCount))
 {
 }
 
@@ -174,13 +174,14 @@ int OneDriveAlbum::imageCount() const
 
 struct OneDriveImagePrivate
 {
-    explicit OneDriveImagePrivate(const QString &imageId, const QString &albumId,
-                                  const QString &userId, const QDateTime &createdTime,
-                                  const QDateTime &updatedTime, const QString &imageName,
-                                  int width, int height, const QString &thumbnailUrl,
-                                  const QString &imageUrl, const QString &thumbnailFile,
-                                  const QString &imageFile, const QString &description,
-                                  int accountId);
+    OneDriveImagePrivate(const QString &imageId, const QString &albumId,
+                         const QString &userId, const QDateTime &createdTime,
+                         const QDateTime &updatedTime, const QString &imageName,
+                         int width, int height, const QString &thumbnailUrl,
+                         const QString &imageUrl, const QString &thumbnailFile,
+                         const QString &imageFile, const QString &description,
+                         int accountId);
+
     QString imageId;
     QString albumId;
     QString userId;
@@ -653,9 +654,7 @@ QMap<int,QString> OneDriveImagesDatabase::accounts(bool *ok) const
     }
 
     QMap<int,QString> result;
-    QSqlQuery query = prepare(QStringLiteral(
-                "SELECT accountId, userId "
-                "FROM accounts "));
+    QSqlQuery query = prepare(QStringLiteral("SELECT accountId, userId FROM accounts "));
     if (!query.exec()) {
         qWarning() << Q_FUNC_INFO << "Unable to fetch account mappings" << query.lastError().text();
         return result;
