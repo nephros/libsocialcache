@@ -30,6 +30,7 @@
 class OneDriveImageCacheModel;
 class OneDriveImageDownloaderWorkerObject;
 class OneDriveImageDownloaderPrivate;
+
 class OneDriveImageDownloader : public AbstractImageDownloader
 {
     Q_OBJECT

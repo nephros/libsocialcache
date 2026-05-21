@@ -23,6 +23,7 @@
 #include "abstractsocialcachemodel.h"
 
 class TwitterPostsModelPrivate;
+
 class TwitterPostsModel: public AbstractSocialCacheModel
 {
     Q_OBJECT

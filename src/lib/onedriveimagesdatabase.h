@@ -26,6 +26,7 @@
 #include <QtCore/QSharedPointer>
 
 class OneDriveUserPrivate;
+
 class OneDriveUser
 {
 public:
@@ -53,6 +54,7 @@ private:
 };
 
 class OneDriveAlbumPrivate;
+
 class OneDriveAlbum
 {
 public:
@@ -83,6 +85,7 @@ private:
 };
 
 class OneDriveImagePrivate;
+
 class OneDriveImage
 {
 public:
@@ -119,13 +122,13 @@ protected:
 
 private:
     Q_DECLARE_PRIVATE(OneDriveImage)
-    explicit OneDriveImage(const QString & imageId, const QString & albumId,
-                           const QString & userId, const QDateTime & createdTime,
-                           const QDateTime & updatedTime, const QString & imageName,
-                           int width, int height, const QString & thumbnailUrl,
-                           const QString & imageUrl, const QString & thumbnailFile,
-                           const QString & imageFile, const QString & description,
-                           int accountId);
+    OneDriveImage(const QString & imageId, const QString & albumId,
+                  const QString & userId, const QDateTime & createdTime,
+                  const QDateTime & updatedTime, const QString & imageName,
+                  int width, int height, const QString & thumbnailUrl,
+                  const QString & imageUrl, const QString & thumbnailFile,
+                  const QString & imageFile, const QString & description,
+                  int accountId);
 };
 
 bool operator==(const OneDriveUser::ConstPtr &user1, const OneDriveUser::ConstPtr &user2);
@@ -133,11 +136,12 @@ bool operator==(const OneDriveAlbum::ConstPtr &album1, const OneDriveAlbum::Cons
 bool operator==(const OneDriveImage::ConstPtr &image1, const OneDriveImage::ConstPtr &image2);
 
 class OneDriveImagesDatabasePrivate;
+
 class OneDriveImagesDatabase: public AbstractSocialCacheDatabase
 {
     Q_OBJECT
 public:
-    explicit OneDriveImagesDatabase();
+    OneDriveImagesDatabase();
     ~OneDriveImagesDatabase();
 
     // Account manipulation
@@ -195,7 +199,6 @@ protected:
     bool write();
     bool createTables(QSqlDatabase database) const;
     bool dropTables(QSqlDatabase database) const;
-
 
 private:
     Q_DECLARE_PRIVATE(OneDriveImagesDatabase)

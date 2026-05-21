@@ -26,7 +26,7 @@ class TwitterPostsDatabase: public AbstractSocialPostCacheDatabase
 {
     Q_OBJECT
 public:
-    explicit TwitterPostsDatabase();
+    TwitterPostsDatabase();
     ~TwitterPostsDatabase();
 
     void addTwitterPost(const QString &identifier, const QString &name, const QString &body,

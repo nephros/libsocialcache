@@ -23,6 +23,7 @@
 #include "abstractsocialcachemodel.h"
 
 class FacebookPostsModelPrivate;
+
 class FacebookPostsModel: public AbstractSocialCacheModel
 {
     Q_OBJECT

@@ -333,7 +333,7 @@ void DropboxImageCacheModel::queryFinished()
             QMap<int, QVariant> albumMap;
             albumMap.insert(DropboxImageCacheModel::DropboxId, QString());
             // albumMap.insert(DropboxImageCacheModel::Icon, QString());
-            //:  Label for the "show all photos from all albums by this user" option
+            //: Label for the "show all photos from all albums by this user" option
             //% "All"
             albumMap.insert(DropboxImageCacheModel::Title, qtTrId("nemo_socialcache_dropbox_images_model-all-albums"));
             albumMap.insert(DropboxImageCacheModel::Count, count);

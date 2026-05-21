@@ -138,7 +138,7 @@ public:
         qmlRegisterType<VKImageCacheModel>(uri, 1, 0, "VKImageCacheModel");
 
         qmlRegisterSingletonType<VKImageDownloader>(uri, 1, 0, "VKImageDownloader",
-                                                          &vkImageDownloader_provider);
+                                                    &vkImageDownloader_provider);
 
         qmlRegisterType<GithubNotificationsModel>(uri, 1, 0, "GithubNotificationsModel");
 #ifndef NO_DEPS

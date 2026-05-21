@@ -329,7 +329,7 @@ void OneDriveImageCacheModel::queryFinished()
             QMap<int, QVariant> albumMap;
             albumMap.insert(OneDriveImageCacheModel::OneDriveId, QString());
             // albumMap.insert(OneDriveImageCacheModel::Icon, QString());
-            //:  Label for the "show all photos from all albums by this user" option
+            //: Label for the "show all photos from all albums by this user" option
             //% "All"
             albumMap.insert(OneDriveImageCacheModel::Title, qtTrId("nemo_socialcache_onedrive_images_model-all-albums"));
             albumMap.insert(OneDriveImageCacheModel::Count, count);

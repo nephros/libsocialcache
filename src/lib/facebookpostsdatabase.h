@@ -25,8 +25,9 @@
 class FacebookPostsDatabase: public AbstractSocialPostCacheDatabase
 {
     Q_OBJECT
+
 public:
-    explicit FacebookPostsDatabase();
+    FacebookPostsDatabase();
     ~FacebookPostsDatabase();
 
     void addFacebookPost(const QString &identifier, const QString &name, const QString &body,

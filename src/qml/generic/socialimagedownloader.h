@@ -26,6 +26,7 @@
 
 class SocialImageCacheModel;
 class SocialImageDownloaderPrivate;
+
 class SocialImageDownloader : public AbstractImageDownloader
 {
     Q_OBJECT

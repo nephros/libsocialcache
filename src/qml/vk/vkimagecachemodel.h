@@ -24,6 +24,7 @@
 #include "vkimagedownloader.h"
 
 class VKImageCacheModelPrivate;
+
 class VKImageCacheModel: public AbstractSocialCacheModel
 {
     Q_OBJECT

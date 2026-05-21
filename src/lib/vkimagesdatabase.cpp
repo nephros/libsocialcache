@@ -32,8 +32,8 @@ static const int VERSION = 1;
 
 struct VKUserPrivate
 {
-    explicit VKUserPrivate(const QString &id, const QString &first_name, const QString &last_name,
-                           const QString &photo_src, const QString &photo_file, int accountId);
+    VKUserPrivate(const QString &id, const QString &first_name, const QString &last_name,
+                  const QString &photo_src, const QString &photo_file, int accountId);
 
     QString id;         // user id
     QString first_name;
@@ -130,10 +130,10 @@ bool VKUser::operator==(const VKUser &other) const
 
 struct VKAlbumPrivate
 {
-    explicit VKAlbumPrivate(const QString &id, const QString &owner_id, const QString &title,
-                            const QString &description, const QString &thumb_src,
-                            const QString &thumb_file, int size, int created, int updated,
-                            int accountId);
+    VKAlbumPrivate(const QString &id, const QString &owner_id, const QString &title,
+                   const QString &description, const QString &thumb_src,
+                   const QString &thumb_file, int size, int created, int updated,
+                   int accountId);
 
     QString id;       // album id
     QString owner_id; // user id

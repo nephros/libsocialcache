@@ -75,10 +75,10 @@ SocialPostImage::ImageType SocialPostImage::type() const
 
 struct SocialPostPrivate
 {
-    explicit SocialPostPrivate(const QString &identifier, const QString &name,
-                               const QString &body, const QDateTime &timestamp,
-                               const QVariantMap &extra = QVariantMap(),
-                               const QList<int> &accounts = QList<int>());
+    SocialPostPrivate(const QString &identifier, const QString &name,
+                      const QString &body, const QDateTime &timestamp,
+                      const QVariantMap &extra = QVariantMap(),
+                      const QList<int> &accounts = QList<int>());
     QString identifier;
     QString name;
     QString body;
@@ -338,11 +338,9 @@ void AbstractSocialPostCacheDatabase::refresh()
 bool AbstractSocialPostCacheDatabase::read()
 {
     Q_D(AbstractSocialPostCacheDatabase);
-    // This might be slow
 
-    QString accountQueryString = QLatin1String(
-                "SELECT account, postId "
-                "FROM link_post_account");
+    // This might be slow
+    QString accountQueryString = QLatin1String("SELECT account, postId FROM link_post_account");
     if (!d->accountIdFilter.isEmpty()) {
         QStringList accountIds;
         for (int i=0; i<d->accountIdFilter.count(); i++) {
@@ -372,9 +370,8 @@ bool AbstractSocialPostCacheDatabase::read()
         }
     }
 
-    QString postQueryString = QLatin1String(
-                "SELECT identifier, name, body, timestamp "
-                "FROM posts");
+    QString postQueryString = QLatin1String("SELECT identifier, name, body, timestamp "
+                                            "FROM posts");
     if (!d->accountIdFilter.isEmpty()) {
         postQueryString += " WHERE identifier IN (\"" + filteredPostIds.join("\",\"") + "\")";
     }

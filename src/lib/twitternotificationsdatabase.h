@@ -33,7 +33,7 @@ class TwitterNotificationsDatabase: public AbstractSocialCacheDatabase
     Q_OBJECT
 
 public:
-    explicit TwitterNotificationsDatabase();
+    TwitterNotificationsDatabase();
     ~TwitterNotificationsDatabase();
 
     QHash<QString, int> retweetedTweetCounts(int accountId);

@@ -24,13 +24,12 @@
 #include "onedriveimagedownloader.h"
 
 class OneDriveImageCacheModelPrivate;
+
 class OneDriveImageCacheModel: public AbstractSocialCacheModel
 {
     Q_OBJECT
-    Q_PROPERTY(OneDriveImageCacheModel::ModelDataType type READ type WRITE setType
-               NOTIFY typeChanged)
-    Q_PROPERTY(OneDriveImageDownloader * downloader READ downloader WRITE setDownloader
-               NOTIFY downloaderChanged)
+    Q_PROPERTY(OneDriveImageCacheModel::ModelDataType type READ type WRITE setType NOTIFY typeChanged)
+    Q_PROPERTY(OneDriveImageDownloader * downloader READ downloader WRITE setDownloader NOTIFY downloaderChanged)
 
     Q_ENUMS(OneDriveGalleryRole)
     Q_ENUMS(ModelDataType)
@@ -74,7 +73,7 @@ public:
     void setDownloader(OneDriveImageDownloader *downloader);
 
     // from AbstractListModel
-    QVariant data(const QModelIndex &index, int role) const;
+    QVariant data(const QModelIndex &index, int role) const override;
 
     Q_INVOKABLE void removeImage(const QString &imageId);
 

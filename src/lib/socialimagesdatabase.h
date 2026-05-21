@@ -26,6 +26,7 @@
 #include <QtCore/QSharedPointer>
 
 class SocialImagePrivate;
+
 class SocialImage
 {
 public:
@@ -53,23 +54,25 @@ protected:
 
 private:
     Q_DECLARE_PRIVATE(SocialImage)
-    explicit SocialImage(int accountId,
-                         const QString & imageUrl,
-                         const QString & imageFile,
-                         const QDateTime &createdTime,
-                         const QDateTime &expires,
-                         const QString &imageId);
+
+    SocialImage(int accountId,
+                const QString & imageUrl,
+                const QString & imageFile,
+                const QDateTime &createdTime,
+                const QDateTime &expires,
+                const QString &imageId);
 };
 
 bool operator==(const SocialImage::ConstPtr &image1, const SocialImage::ConstPtr &image2);
 
 class SocialImagesDatabasePrivate;
+
 class SocialImagesDatabase: public AbstractSocialCacheDatabase
 {
     Q_OBJECT
 
 public:
-    explicit SocialImagesDatabase();
+    SocialImagesDatabase();
     ~SocialImagesDatabase();
 
     void purgeAccount(int accountId);
@@ -99,7 +102,6 @@ protected:
     bool write();
     bool createTables(QSqlDatabase database) const;
     bool dropTables(QSqlDatabase database) const;
-
 
 private:
     Q_DECLARE_PRIVATE(SocialImagesDatabase)

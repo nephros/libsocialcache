@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2013 Lucien XU <sfietkonstantin@free.fr>
- * Copyright (C) 2013 - 2021 Jolla Pty Ltd.
+ * Copyright (C) 2013 - 2021 Jolla Ltd.
  *
  * You may use this file under the terms of the BSD license as follows:
  *

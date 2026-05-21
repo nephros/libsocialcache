@@ -25,10 +25,10 @@
 #include <QtCore/QVariantMap>
 
 class SocialPostImagePrivate;
+
 class SocialPostImage
 {
 public:
-
     enum ImageType {
         Invalid,
         Photo,
@@ -38,7 +38,7 @@ public:
     typedef QSharedPointer<SocialPostImage> Ptr;
     typedef QSharedPointer<const SocialPostImage> ConstPtr;
 
-    explicit SocialPostImage();
+    SocialPostImage();
     virtual ~SocialPostImage();
 
     QString url() const;
@@ -55,6 +55,7 @@ private:
 };
 
 class SocialPostPrivate;
+
 class SocialPost
 {
 public:
@@ -95,13 +96,14 @@ private:
 };
 
 class AbstractSocialPostCacheDatabasePrivate;
+
 class AbstractSocialPostCacheDatabase: public AbstractSocialCacheDatabase
 {
     Q_OBJECT
     Q_PROPERTY(QVariantList accountIdFilter READ accountIdFilter WRITE setAccountIdFilter NOTIFY accountIdFilterChanged)
+
 public:
-    explicit AbstractSocialPostCacheDatabase(
-            const QString &serviceName, const QString &databaseFile);
+    AbstractSocialPostCacheDatabase(const QString &serviceName, const QString &databaseFile);
     ~AbstractSocialPostCacheDatabase();
 
     QVariantList accountIdFilter() const;
@@ -134,10 +136,8 @@ protected:
 
     void readFinished();
 
-
 private:
     Q_DECLARE_PRIVATE(AbstractSocialPostCacheDatabase)
 };
-
 
 #endif // ABSTRACTSOCIALPOSTCACHEDATABASE_H
